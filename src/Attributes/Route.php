@@ -47,6 +47,8 @@ class Route implements RouteConditionInterface, MiddlewareAwareInterface, Middle
      * @param string                               $scheme
      * @param string                               $host
      * @param int|null                             $port
+     *
+     * @throws RouteException
      */
     public function __construct(
         protected string $path,
@@ -58,11 +60,32 @@ class Route implements RouteConditionInterface, MiddlewareAwareInterface, Middle
         int|null $port = null
     ) {
         $this->path = '/' . trim($this->path, '/');
+        $this->methods = $this->sanitizeMethods($this->methods);
         $this->name = $name;
         $this->middlewares = $middlewares;
         $this->scheme = $scheme;
         $this->host = $host;
         $this->port = $port;
+    }
+
+    /**
+     * @param string[] $methods
+     *
+     * @throws RouteException
+     * @return string[]
+     */
+    protected function sanitizeMethods(array $methods): array
+    {
+        $allowedMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
+
+        if (!array_intersect($methods, $allowedMethods)) {
+            throw new RouteException(
+                'Invalid HTTP method(s) "' . implode(', ', $methods) . '" provided.' .
+                'Allowed methods are: ' . implode(', ', $allowedMethods) . '.'
+            );
+        }
+
+        return array_map('strtoupper', $methods);
     }
 
     /**
