@@ -17,9 +17,18 @@ class Post extends Route
      * @param string                               $path
      * @param string                               $name
      * @param MiddlewareInterface[]|class-string[] $middlewares
+     * @param string                               $scheme
+     * @param string                               $host
+     * @param int|null                             $port
      */
-    public function __construct(string $path, string $name = '', array $middlewares = [])
-    {
-        parent::__construct($path, ['POST'], $name, $middlewares);
+    public function __construct(
+        string $path,
+        string $name = '',
+        array $middlewares = [],
+        string $scheme = '',
+        string $host = '',
+        int|null $port = null
+    ) {
+        parent::__construct($path, ['POST'], $name, $middlewares, $scheme, $host, $port);
     }
 }

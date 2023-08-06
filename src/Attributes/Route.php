@@ -10,15 +10,18 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zaphyr\Route\Contracts\MiddlewareAwareInterface;
+use Zaphyr\Route\Contracts\RouteConditionInterface;
 use Zaphyr\Route\Exceptions\RouteException;
 use Zaphyr\Route\Traits\MiddlewareAwareTrait;
+use Zaphyr\Route\Traits\RouteConditionTrait;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>
  */
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-class Route implements MiddlewareAwareInterface, MiddlewareInterface
+class Route implements RouteConditionInterface, MiddlewareAwareInterface, MiddlewareInterface
 {
+    use RouteConditionTrait;
     use MiddlewareAwareTrait;
 
     /**
@@ -41,16 +44,25 @@ class Route implements MiddlewareAwareInterface, MiddlewareInterface
      * @param string[]                             $methods
      * @param string                               $name
      * @param MiddlewareInterface[]|class-string[] $middlewares
+     * @param string                               $scheme
+     * @param string                               $host
+     * @param int|null                             $port
      */
     public function __construct(
         protected string $path,
         protected array $methods = ['GET'],
         string $name = '',
         array $middlewares = [],
+        string $scheme = '',
+        string $host = '',
+        int|null $port = null
     ) {
         $this->path = '/' . trim($this->path, '/');
         $this->name = $name;
         $this->middlewares = $middlewares;
+        $this->scheme = $scheme;
+        $this->host = $host;
+        $this->port = $port;
     }
 
     /**

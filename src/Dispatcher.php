@@ -55,6 +55,18 @@ class Dispatcher implements MiddlewareAwareInterface, RequestHandlerInterface
                     );
                 }
 
+                if ($route->getScheme() !== $uri->getScheme()) {
+                    break;
+                }
+
+                if ($route->getHost() !== $uri->getHost()) {
+                    break;
+                }
+
+                if ($route->getPort() !== $uri->getPort()) {
+                    break;
+                }
+
                 $this->setFoundMiddleware($route);
 
                 return $this->shiftMiddleware()->process($request, $this);
