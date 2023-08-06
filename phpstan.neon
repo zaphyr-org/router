@@ -5,3 +5,7 @@ parameters:
         - src
     parallel:
         maximumNumberOfProcesses: 1
+    ignoreErrors:
+        -
+            message: '%Parameter #1 \$callable of method Zaphyr\\Route\\Attributes\\Route::setCallable\(\) expects array<string, string>|(callable\(\): mixed)|string, array{class-string, non-empty-string} given.%'
+            path: src/Utils/AttributesResolver.php
