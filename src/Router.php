@@ -42,14 +42,27 @@ class Router implements RouterInterface
     protected bool $isPrepared = false;
 
     /**
-     * @param DispatcherInterface $dispatcher
-     * @param class-string[]      $controllers
+     * @var array<string, string>
+     */
+    protected static array $routePatterns = [
+        '/{(.+?):numeric}/' => '{$1:\d+}',
+        '/{(.+?):alpha}/' => '{$1:[a-zA-Z]+}',
+        '/{(.+?):alphanum}/' => '{$1:[a-zA-Z0-9]+}',
+        '/{(.+?):alphanum_dash}/' => '{$1:[a-zA-Z0-9-_]+}',
+    ];
+
+    /**
+     * @param DispatcherInterface   $dispatcher
+     * @param class-string[]        $controllers
+     * @param array<string, string> $routePatterns
      */
     public function __construct(
         protected DispatcherInterface $dispatcher = new Dispatcher(),
-        array $controllers = []
+        array $controllers = [],
+        array $routePatterns = []
     ) {
         $this->setControllerRoutes($controllers);
+        $this->setRoutePatterns($routePatterns);
     }
 
     /**
@@ -60,6 +73,19 @@ class Router implements RouterInterface
         foreach ($controllers as $controller) {
             AttributesResolver::appendRoutes($controller, $this->routes);
             AttributesResolver::appendGroups($controller, $this->groups, $this);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setRoutePatterns(array $routePatterns): void
+    {
+        foreach ($routePatterns as $alias => $regex) {
+            $pattern = '/{(.+?):' . $alias . '}/';
+            $regex = '{$1:' . $regex . '}';
+
+            self::$routePatterns[$pattern] = $regex;
         }
     }
 
@@ -107,6 +133,7 @@ class Router implements RouterInterface
     /**
      * @param ServerRequestInterface $request
      *
+     * @throws RouteException
      * @return void
      */
     protected function prepareRoutes(ServerRequestInterface $request): void
@@ -132,10 +159,29 @@ class Router implements RouterInterface
                 break;
             }
 
-            $this->dispatcher->addRoute($route);
+            $this->dispatcher->addRoute($route->setPath($this->prepareRoutePath($route->getPath())));
         }
 
         $this->isPrepared = true;
+    }
+
+    /**
+     * @param string $path
+     *
+     * @throws RouteException
+     * @return string
+     */
+    protected function prepareRoutePath(string $path): string
+    {
+        $pattern = array_keys(static::$routePatterns);
+        $replacement = array_values(static::$routePatterns);
+        $preparedPath = preg_replace($pattern, $replacement, $path);
+
+        if ($preparedPath === null) {
+            throw new RouteException('Could not prepare path "' . $path . '"');
+        }
+
+        return $preparedPath;
     }
 
     /**

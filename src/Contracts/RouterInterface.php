@@ -22,6 +22,13 @@ interface RouterInterface extends RouteCollectorInterface, MiddlewareAwareInterf
     public function setControllerRoutes(array $controllers): void;
 
     /**
+     * @param array<string, string> $routePatterns
+     *
+     * @return void
+     */
+    public function setRoutePatterns(array $routePatterns): void;
+
+    /**
      * @param string   $path
      * @param callable $callable
      *

@@ -25,6 +25,11 @@ class Route implements RouteConditionInterface, MiddlewareAwareInterface, Middle
     use MiddlewareAwareTrait;
 
     /**
+     * @var string
+     */
+    protected string $path;
+
+    /**
      * @var callable|string|array<string|object, string>
      */
     protected $callable;
@@ -56,7 +61,7 @@ class Route implements RouteConditionInterface, MiddlewareAwareInterface, Middle
      * @throws RouteException
      */
     public function __construct(
-        protected string $path,
+        string $path,
         protected array $methods = ['GET'],
         string $name = '',
         array $middlewares = [],
@@ -64,7 +69,7 @@ class Route implements RouteConditionInterface, MiddlewareAwareInterface, Middle
         string $host = '',
         int|null $port = null
     ) {
-        $this->path = '/' . trim($this->path, '/');
+        $this->setPath($path);
         $this->methods = $this->sanitizeMethods($this->methods);
         $this->name = $name;
         $this->middlewares = $middlewares;
@@ -101,6 +106,18 @@ class Route implements RouteConditionInterface, MiddlewareAwareInterface, Middle
     public function setCallable(array|callable|string $callable): static
     {
         $this->callable = $callable;
+
+        return $this;
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return $this
+     */
+    public function setPath(string $path): static
+    {
+        $this->path = '/' . trim($path, '/');
 
         return $this;
     }
