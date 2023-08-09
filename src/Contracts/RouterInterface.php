@@ -43,4 +43,13 @@ interface RouterInterface extends RouteCollectorInterface, MiddlewareAwareInterf
      * @return Route
      */
     public function getNamedRoute(string $name): Route;
+
+    /**
+     * @param string               $name
+     * @param array<string, mixed> $params
+     *
+     * @throws RouteException
+     * @return string
+     */
+    public function getPathFromName(string $name, array $params = []): string;
 }

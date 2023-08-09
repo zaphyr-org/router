@@ -9,6 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zaphyr\Route\Attributes\Group;
 use Zaphyr\Route\Attributes\Route;
 use Zaphyr\Route\Contracts\DispatcherInterface;
+use Zaphyr\Route\Contracts\RouteParserInterface;
 use Zaphyr\Route\Contracts\RouterInterface;
 use Zaphyr\Route\Exceptions\MethodNotAllowedException;
 use Zaphyr\Route\Exceptions\MiddlewareException;
@@ -53,11 +54,13 @@ class Router implements RouterInterface
 
     /**
      * @param DispatcherInterface   $dispatcher
+     * @param RouteParserInterface  $routeParser
      * @param class-string[]        $controllers
      * @param array<string, string> $routePatterns
      */
     public function __construct(
         protected DispatcherInterface $dispatcher = new Dispatcher(),
+        protected RouteParserInterface $routeParser = new RouteParser(),
         array $controllers = [],
         array $routePatterns = []
     ) {
@@ -196,5 +199,46 @@ class Router implements RouterInterface
         }
 
         throw new RouteException('Could not find route with name "' . $name . '"');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPathFromName(string $name, array $params = []): string
+    {
+        $route = $this->getNamedRoute($name);
+        $path = $this->prepareRoutePath($route->getPath());
+        $routeData = array_reverse($this->routeParser->parse($path));
+
+        $segments = [];
+        $segmentName = '';
+
+        foreach ($routeData as $data) {
+            /** @var array<int, string|array<int, string>> $data */
+            foreach ($data as $item) {
+                if (is_string($item)) {
+                    $segments[] = $item;
+                    continue;
+                }
+
+                if (!array_key_exists($item[0], $params)) {
+                    $segments = [];
+                    $segmentName = $item[0];
+                    break;
+                }
+
+                $segments[] = $params[$item[0]];
+            }
+
+            if (!empty($segments)) {
+                break;
+            }
+        }
+
+        if (empty($segments)) {
+            throw new RouteException('Missing data for URL param "' . $segmentName . '"');
+        }
+
+        return implode('', $segments);
     }
 }
