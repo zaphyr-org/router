@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zaphyr\Route\Attributes\Group;
 use Zaphyr\Route\Attributes\Route;
+use Zaphyr\Route\Contracts\DispatcherInterface;
 use Zaphyr\Route\Contracts\RouterInterface;
 use Zaphyr\Route\Exceptions\MethodNotAllowedException;
 use Zaphyr\Route\Exceptions\MiddlewareException;
@@ -36,10 +37,18 @@ class Router implements RouterInterface
     protected array $groups = [];
 
     /**
-     * @param class-string[] $controllers
+     * @var bool
      */
-    public function __construct(array $controllers = [])
-    {
+    protected bool $isPrepared = false;
+
+    /**
+     * @param DispatcherInterface $dispatcher
+     * @param class-string[]      $controllers
+     */
+    public function __construct(
+        protected DispatcherInterface $dispatcher = new Dispatcher(),
+        array $controllers = []
+    ) {
         $this->setControllerRoutes($controllers);
     }
 
@@ -88,13 +97,45 @@ class Router implements RouterInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        if (!$this->isPrepared) {
+            $this->prepareRoutes($request);
+        }
+
+        return $this->dispatcher->addMiddlewares($this->getMiddlewareStack())->handle($request);
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     *
+     * @return void
+     */
+    protected function prepareRoutes(ServerRequestInterface $request): void
+    {
         foreach ($this->groups as $key => $group) {
             unset($this->groups[$key]);
 
             $group();
         }
 
-        return (new Dispatcher($this->routes))->addMiddlewares($this->getMiddlewareStack())->handle($request);
+        $uri = $request->getUri();
+
+        foreach ($this->routes as $route) {
+            if ($route->getScheme() !== $uri->getScheme()) {
+                break;
+            }
+
+            if ($route->getHost() !== $uri->getHost()) {
+                break;
+            }
+
+            if ($route->getPort() !== $uri->getPort()) {
+                break;
+            }
+
+            $this->dispatcher->addRoute($route);
+        }
+
+        $this->isPrepared = true;
     }
 
     /**
