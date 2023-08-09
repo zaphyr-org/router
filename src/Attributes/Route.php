@@ -40,6 +40,11 @@ class Route implements RouteConditionInterface, MiddlewareAwareInterface, Middle
     protected Group|null $group = null;
 
     /**
+     * @var array<string, string>
+     */
+    protected array $params = [];
+
+    /**
      * @param string                               $path
      * @param string[]                             $methods
      * @param string                               $name
@@ -157,6 +162,26 @@ class Route implements RouteConditionInterface, MiddlewareAwareInterface, Middle
     }
 
     /**
+     * @param array<string, string> $params
+     *
+     * @return $this
+     */
+    public function setParams(array $params): static
+    {
+        $this->params = $params;
+
+        return $this;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getParams(): array
+    {
+        return $this->params;
+    }
+
+    /**
      * {@inheritdoc}
      *
      * @throws RouteException
@@ -165,7 +190,7 @@ class Route implements RouteConditionInterface, MiddlewareAwareInterface, Middle
     {
         $callback = $this->resolveCallable($this->callable);
 
-        return $callback($request);
+        return $callback($request, $this->getParams());
     }
 
     /**

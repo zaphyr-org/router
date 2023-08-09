@@ -69,7 +69,7 @@ class Dispatcher extends RegexBasedAbstract implements DispatcherInterface
         }
 
         if ($routeInfo[0] === self::FOUND) {
-            $this->setFoundMiddleware($routeInfo[1]);
+            $this->setFoundMiddleware($routeInfo[1]->setParams($routeInfo[2]));
         }
 
         return $this->shiftMiddleware()->process($request, $this);
