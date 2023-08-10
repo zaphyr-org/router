@@ -12,7 +12,11 @@ use Zaphyr\Route\Exceptions\RouteException;
 /**
  * @author merloxx <merloxx@zaphyr.org>
  */
-interface RouterInterface extends RouteCollectorInterface, MiddlewareAwareInterface, RequestHandlerInterface
+interface RouterInterface extends
+    RouteCollectorInterface,
+    MiddlewareAwareInterface,
+    ContainerAwareInterface,
+    RequestHandlerInterface
 {
     /**
      * @param class-string[] $controllers

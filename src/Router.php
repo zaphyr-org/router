@@ -15,6 +15,7 @@ use Zaphyr\Route\Exceptions\MethodNotAllowedException;
 use Zaphyr\Route\Exceptions\MiddlewareException;
 use Zaphyr\Route\Exceptions\NotFoundException;
 use Zaphyr\Route\Exceptions\RouteException;
+use Zaphyr\Route\Traits\ContainerAwareTrait;
 use Zaphyr\Route\Traits\MiddlewareAwareTrait;
 use Zaphyr\Route\Traits\RouteCollectorTrait;
 use Zaphyr\Route\Utils\AttributesResolver;
@@ -26,6 +27,7 @@ class Router implements RouterInterface
 {
     use RouteCollectorTrait;
     use MiddlewareAwareTrait;
+    use ContainerAwareTrait;
 
     /**
      * @var Route[]
@@ -160,6 +162,10 @@ class Router implements RouterInterface
 
             if ($route->getPort() !== $uri->getPort()) {
                 break;
+            }
+
+            if ($this->getContainer() !== null) {
+                $route->setContainer($this->getContainer());
             }
 
             $this->dispatcher->addRoute($route->setPath($this->prepareRoutePath($route->getPath())));

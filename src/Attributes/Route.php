@@ -9,9 +9,12 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Throwable;
+use Zaphyr\Route\Contracts\ContainerAwareInterface;
 use Zaphyr\Route\Contracts\MiddlewareAwareInterface;
 use Zaphyr\Route\Contracts\RouteConditionInterface;
 use Zaphyr\Route\Exceptions\RouteException;
+use Zaphyr\Route\Traits\ContainerAwareTrait;
 use Zaphyr\Route\Traits\MiddlewareAwareTrait;
 use Zaphyr\Route\Traits\RouteConditionTrait;
 
@@ -19,10 +22,11 @@ use Zaphyr\Route\Traits\RouteConditionTrait;
  * @author merloxx <merloxx@zaphyr.org>
  */
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-class Route implements RouteConditionInterface, MiddlewareAwareInterface, MiddlewareInterface
+class Route implements RouteConditionInterface, MiddlewareAwareInterface, MiddlewareInterface, ContainerAwareInterface
 {
     use RouteConditionTrait;
     use MiddlewareAwareTrait;
+    use ContainerAwareTrait;
 
     /**
      * @var string
@@ -205,33 +209,45 @@ class Route implements RouteConditionInterface, MiddlewareAwareInterface, Middle
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $callback = $this->resolveCallable($this->callable);
+        $callback = $this->resolveCallable();
 
         return $callback($request, $this->getParams());
     }
 
     /**
-     * @param callable|string|array<string|object, string> $callable
-     *
      * @throws RouteException
      * @return mixed
      */
-    protected function resolveCallable(array|callable|string $callable): mixed
+    protected function resolveCallable(): mixed
     {
+        $callable = $this->callable;
+        $container = $this->getContainer();
+
         if (is_callable($callable)) {
             return $callable;
         }
 
         if (is_string($callable) && method_exists($callable, '__invoke')) {
-            return new $callable();
+            try {
+                return $container !== null ? $container->get($callable) : new $callable();
+            } catch (Throwable $exception) {
+                throw new RouteException($exception->getMessage(), $exception->getCode(), $exception);
+            }
         }
 
         if (is_string($callable) && str_contains($callable, '@')) {
             $callable = explode('@', $callable);
         }
 
+
         if (is_array($callable) && isset($callable[0])) {
-            return [new $callable[0](), $callable[1]];
+            try {
+                $class = $container !== null ? $container->get($callable[0]) : new $callable[0]();
+            } catch (Throwable $exception) {
+                throw new RouteException($exception->getMessage(), $exception->getCode(), $exception);
+            }
+
+            return [$class, $callable[1]];
         }
 
         throw new RouteException(
