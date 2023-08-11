@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Zaphyr\Route\Contracts;
 
 use Psr\Http\Server\RequestHandlerInterface;
-use Zaphyr\Route\Attributes\Route;
+use Zaphyr\Route\Contracts\Attributes\RouteInterface;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>
@@ -13,9 +13,9 @@ use Zaphyr\Route\Attributes\Route;
 interface DispatcherInterface extends MiddlewareAwareInterface, RequestHandlerInterface
 {
     /**
-     * @param Route $route
+     * @param RouteInterface $route
      *
      * @return $this
      */
-    public function addRoute(Route $route): static;
+    public function addRoute(RouteInterface $route): static;
 }

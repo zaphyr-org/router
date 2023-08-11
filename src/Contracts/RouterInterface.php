@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Zaphyr\Route\Contracts;
 
 use Psr\Http\Server\RequestHandlerInterface;
-use Zaphyr\Route\Attributes\Group;
-use Zaphyr\Route\Attributes\Route;
+use Zaphyr\Route\Contracts\Attributes\GroupInterface;
+use Zaphyr\Route\Contracts\Attributes\RouteInterface;
 use Zaphyr\Route\Exceptions\RouteException;
 
 /**
@@ -36,23 +36,23 @@ interface RouterInterface extends
      * @param string   $path
      * @param callable $callable
      *
-     * @return Group
+     * @return GroupInterface
      */
-    public function group(string $path, callable $callable): Group;
+    public function group(string $path, callable $callable): GroupInterface;
 
     /**
      * @param string $name
      *
-     * @throws RouteException
-     * @return Route
+     * @throws RouteException if route name does not exist
+     * @return RouteInterface
      */
-    public function getNamedRoute(string $name): Route;
+    public function getNamedRoute(string $name): RouteInterface;
 
     /**
      * @param string               $name
      * @param array<string, mixed> $params
      *
-     * @throws RouteException
+     * @throws RouteException if params are missing for URL
      * @return string
      */
     public function getPathFromName(string $name, array $params = []): string;

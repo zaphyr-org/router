@@ -10,7 +10,7 @@ use FastRoute\RouteCollector;
 use FastRoute\RouteParser\Std;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zaphyr\Route\Attributes\Route;
+use Zaphyr\Route\Contracts\Attributes\RouteInterface;
 use Zaphyr\Route\Contracts\DispatcherInterface;
 use Zaphyr\Route\Exceptions\MethodNotAllowedException;
 use Zaphyr\Route\Exceptions\MiddlewareException;
@@ -35,7 +35,7 @@ class Dispatcher extends RegexBasedAbstract implements DispatcherInterface
     /**
      * {@inheritdoc}
      */
-    public function addRoute(Route $route): static
+    public function addRoute(RouteInterface $route): static
     {
         $this->routeCollector->addRoute($route->getMethods(), $route->getPath(), $route);
 
@@ -45,9 +45,9 @@ class Dispatcher extends RegexBasedAbstract implements DispatcherInterface
     /**
      * {@inheritdoc}
      *
-     * @throws MiddlewareException
-     * @throws NotFoundException
-     * @throws MethodNotAllowedException
+     * @throws MiddlewareException if the middleware is not callable
+     * @throws NotFoundException if no route was found for the given path
+     * @throws MethodNotAllowedException if the HTTP method is not allowed for the requested route
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
@@ -76,12 +76,12 @@ class Dispatcher extends RegexBasedAbstract implements DispatcherInterface
     }
 
     /**
-     * @param Route $route
+     * @param RouteInterface $route
      *
-     * @throws MiddlewareException
+     * @throws MiddlewareException if the middleware is not callable
      * @return void
      */
-    protected function setFoundMiddleware(Route $route): void
+    protected function setFoundMiddleware(RouteInterface $route): void
     {
         foreach ($this->getMiddlewareStack() as $key => $middleware) {
             $this->middlewares[$key] = $this->resolveMiddleware($middleware);

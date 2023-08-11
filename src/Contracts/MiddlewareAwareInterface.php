@@ -32,7 +32,7 @@ interface MiddlewareAwareInterface
     public function getMiddlewareStack(): array;
 
     /**
-     * @throws MiddlewareException
+     * @throws MiddlewareException if the middleware is not callable
      * @return MiddlewareInterface
      */
     public function shiftMiddleware(): MiddlewareInterface;
@@ -40,7 +40,7 @@ interface MiddlewareAwareInterface
     /**
      * @param MiddlewareInterface|class-string $middleware
      *
-     * @throws MiddlewareException
+     * @throws MiddlewareException if the middleware could not be resolved
      * @return MiddlewareInterface
      */
     public function resolveMiddleware(MiddlewareInterface|string $middleware): MiddlewareInterface;

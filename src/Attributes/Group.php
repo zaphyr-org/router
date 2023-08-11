@@ -6,9 +6,8 @@ namespace Zaphyr\Route\Attributes;
 
 use Attribute;
 use Psr\Http\Server\MiddlewareInterface;
-use Zaphyr\Route\Contracts\MiddlewareAwareInterface;
-use Zaphyr\Route\Contracts\RouteCollectorInterface;
-use Zaphyr\Route\Contracts\RouteConditionInterface;
+use Zaphyr\Route\Contracts\Attributes\GroupInterface;
+use Zaphyr\Route\Contracts\Attributes\RouteInterface;
 use Zaphyr\Route\Contracts\RouterInterface;
 use Zaphyr\Route\Traits\MiddlewareAwareTrait;
 use Zaphyr\Route\Traits\RouteCollectorTrait;
@@ -18,7 +17,7 @@ use Zaphyr\Route\Traits\RouteConditionTrait;
  * @author merloxx <merloxx@zaphyr.org>
  */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::IS_REPEATABLE)]
-class Group implements RouteCollectorInterface, RouteConditionInterface, MiddlewareAwareInterface
+class Group implements GroupInterface
 {
     use RouteCollectorTrait;
     use RouteConditionTrait;
@@ -56,9 +55,7 @@ class Group implements RouteCollectorInterface, RouteConditionInterface, Middlew
     }
 
     /**
-     * @param callable $callable
-     *
-     * @return $this
+     * {@inheritdoc}
      */
     public function setCallable(callable $callable): static
     {
@@ -68,9 +65,7 @@ class Group implements RouteCollectorInterface, RouteConditionInterface, Middlew
     }
 
     /**
-     * @param RouterInterface $router
-     *
-     * @return $this
+     * {@inheritdoc}
      */
     public function setRouter(RouterInterface $router): static
     {
@@ -82,11 +77,8 @@ class Group implements RouteCollectorInterface, RouteConditionInterface, Middlew
     /**
      * {@inheritdoc}
      */
-    public function add(
-        string $path,
-        array $methods,
-        array|callable|string $callable
-    ): Route {
+    public function add(string $path, array $methods, array|callable|string $callable): RouteInterface
+    {
         $route = $this->router->add($this->path . $path, $methods, $callable);
         $route->setGroup($this);
 
@@ -106,7 +98,7 @@ class Group implements RouteCollectorInterface, RouteConditionInterface, Middlew
     }
 
     /**
-     * @return void
+     * {@inheritdoc}
      */
     public function __invoke(): void
     {

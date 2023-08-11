@@ -47,7 +47,7 @@ trait RouteConditionTrait
     /**
      * @param string $scheme
      *
-     * @throws RouteException
+     * @throws RouteException If the URI scheme is not allowed
      * @return string
      */
     private function sanitizeScheme(string $scheme): string

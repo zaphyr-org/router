@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Zaphyr\Route\Traits;
 
-use Zaphyr\Route\Attributes\Route;
+use Zaphyr\Route\Contracts\Attributes\RouteInterface;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>
@@ -14,12 +14,12 @@ trait RouteCollectorTrait
     /**
      * {@inheritdoc}
      */
-    abstract public function add(string $path, array $methods, array|callable|string $callable): Route;
+    abstract public function add(string $path, array $methods, array|callable|string $callable): RouteInterface;
 
     /**
      * {@inheritdoc}
      */
-    public function any(string $path, array|callable|string $callable): Route
+    public function any(string $path, array|callable|string $callable): RouteInterface
     {
         return $this->add(
             $path,
@@ -31,7 +31,7 @@ trait RouteCollectorTrait
     /**
      * {@inheritdoc}
      */
-    public function get(string $path, array|callable|string $callable): Route
+    public function get(string $path, array|callable|string $callable): RouteInterface
     {
         return $this->add($path, ['GET'], $callable);
     }
@@ -39,7 +39,7 @@ trait RouteCollectorTrait
     /**
      * {@inheritdoc}
      */
-    public function post(string $path, array|callable|string $callable): Route
+    public function post(string $path, array|callable|string $callable): RouteInterface
     {
         return $this->add($path, ['POST'], $callable);
     }
@@ -47,7 +47,7 @@ trait RouteCollectorTrait
     /**
      * {@inheritdoc}
      */
-    public function put(string $path, array|callable|string $callable): Route
+    public function put(string $path, array|callable|string $callable): RouteInterface
     {
         return $this->add($path, ['PUT'], $callable);
     }
@@ -55,7 +55,7 @@ trait RouteCollectorTrait
     /**
      * {@inheritdoc}
      */
-    public function patch(string $path, array|callable|string $callable): Route
+    public function patch(string $path, array|callable|string $callable): RouteInterface
     {
         return $this->add($path, ['PATCH'], $callable);
     }
@@ -63,7 +63,7 @@ trait RouteCollectorTrait
     /**
      * {@inheritdoc}
      */
-    public function delete(string $path, array|callable|string $callable): Route
+    public function delete(string $path, array|callable|string $callable): RouteInterface
     {
         return $this->add($path, ['DELETE'], $callable);
     }
@@ -71,7 +71,7 @@ trait RouteCollectorTrait
     /**
      * {@inheritdoc}
      */
-    public function head(string $path, array|callable|string $callable): Route
+    public function head(string $path, array|callable|string $callable): RouteInterface
     {
         return $this->add($path, ['HEAD'], $callable);
     }
@@ -79,7 +79,7 @@ trait RouteCollectorTrait
     /**
      * {@inheritdoc}
      */
-    public function options(string $path, array|callable|string $callable): Route
+    public function options(string $path, array|callable|string $callable): RouteInterface
     {
         return $this->add($path, ['OPTIONS'], $callable);
     }

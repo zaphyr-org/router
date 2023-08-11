@@ -8,16 +8,19 @@ use ReflectionAttribute;
 use ReflectionClass;
 use Zaphyr\Route\Attributes\Group;
 use Zaphyr\Route\Attributes\Route;
+use Zaphyr\Route\Contracts\Attributes\GroupInterface;
+use Zaphyr\Route\Contracts\Attributes\RouteInterface;
 use Zaphyr\Route\Contracts\RouterInterface;
 
 /**
- * @author merloxx <merloxx@zaphyr.org>
+ * @author   merloxx <merloxx@zaphyr.org>
+ * @internal This class is not part of the public API of this package and may change at any time without notice
  */
 class AttributesResolver
 {
     /**
-     * @param class-string $controller
-     * @param Route[]      $routes
+     * @param class-string     $controller
+     * @param RouteInterface[] $routes
      *
      * @return void
      */
@@ -40,9 +43,9 @@ class AttributesResolver
     }
 
     /**
-     * @param class-string    $controller
-     * @param Group[]         $groups
-     * @param RouterInterface $router
+     * @param class-string     $controller
+     * @param GroupInterface[] $groups
+     * @param RouterInterface  $router
      *
      * @return void
      */
@@ -56,7 +59,7 @@ class AttributesResolver
 
             $group
                 ->setCallable(
-                    static function (Group $group) use ($reflection, $controller) {
+                    static function (GroupInterface $group) use ($reflection, $controller) {
                         foreach ($reflection->getMethods() as $method) {
                             $routes = $method->getAttributes(Route::class, ReflectionAttribute::IS_INSTANCEOF);
 

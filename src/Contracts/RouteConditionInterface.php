@@ -14,7 +14,7 @@ interface RouteConditionInterface
     /**
      * @param string $scheme
      *
-     * @throws RouteException
+     * @throws RouteException If the URI scheme is not allowed
      * @return $this
      */
     public function setScheme(string $scheme): static;
@@ -39,7 +39,7 @@ interface RouteConditionInterface
     /**
      * @param int $port
      *
-     * @throws RouteException
+     * @throws RouteException if the port is not valid
      * @return $this
      */
     public function setPort(int $port): static;

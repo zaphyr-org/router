@@ -15,7 +15,7 @@ interface ContainerAwareInterface
     /**
      * @param ContainerInterface $container
      *
-     * @throws RouteException
+     * @throws RouteException if the class does not implement ContainerAwareInterface
      * @return $this
      */
     public function setContainer(ContainerInterface $container): static;

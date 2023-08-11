@@ -8,6 +8,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zaphyr\Route\Attributes\Group;
 use Zaphyr\Route\Attributes\Route;
+use Zaphyr\Route\Contracts\Attributes\GroupInterface;
+use Zaphyr\Route\Contracts\Attributes\RouteInterface;
 use Zaphyr\Route\Contracts\DispatcherInterface;
 use Zaphyr\Route\Contracts\RouteParserInterface;
 use Zaphyr\Route\Contracts\RouterInterface;
@@ -30,12 +32,12 @@ class Router implements RouterInterface
     use ContainerAwareTrait;
 
     /**
-     * @var Route[]
+     * @var RouteInterface[]
      */
     protected array $routes = [];
 
     /**
-     * @var Group[]
+     * @var GroupInterface[]
      */
     protected array $groups = [];
 
@@ -97,7 +99,7 @@ class Router implements RouterInterface
     /**
      * {@inheritdoc}
      */
-    public function add(string $path, array $methods, array|callable|string $callable): Route
+    public function add(string $path, array $methods, array|callable|string $callable): RouteInterface
     {
         $route = (new Route($path, $methods))->setCallable($callable);
 
@@ -109,7 +111,7 @@ class Router implements RouterInterface
     /**
      * {@inheritdoc}
      */
-    public function group(string $path, callable $callable): Group
+    public function group(string $path, callable $callable): GroupInterface
     {
         $group = (new Group($path))->setCallable($callable)->setRouter($this);
 
@@ -121,10 +123,10 @@ class Router implements RouterInterface
     /**
      * {@inheritdoc}
      *
-     * @throws RouteException
-     * @throws MiddlewareException
-     * @throws NotFoundException
-     * @throws MethodNotAllowedException
+     * @throws RouteException if the path could not be prepared or the container could not be set
+     * @throws MiddlewareException if the middleware could not be resolved
+     * @throws NotFoundException if the route could not be found
+     * @throws MethodNotAllowedException if the HTTP method is not allowed for the requested route
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
@@ -138,7 +140,7 @@ class Router implements RouterInterface
     /**
      * @param ServerRequestInterface $request
      *
-     * @throws RouteException
+     * @throws RouteException if the path could not be prepared or the container could not be set
      * @return void
      */
     protected function prepareRoutes(ServerRequestInterface $request): void
@@ -177,7 +179,7 @@ class Router implements RouterInterface
     /**
      * @param string $path
      *
-     * @throws RouteException
+     * @throws RouteException if the path could not be prepared
      * @return string
      */
     protected function prepareRoutePath(string $path): string
@@ -196,7 +198,7 @@ class Router implements RouterInterface
     /**
      * {@inheritdoc}
      */
-    public function getNamedRoute(string $name): Route
+    public function getNamedRoute(string $name): RouteInterface
     {
         foreach ($this->routes as $route) {
             if ($route->getName() === $name) {
