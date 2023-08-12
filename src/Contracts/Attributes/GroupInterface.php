@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route\Contracts\Attributes;
+namespace Zaphyr\Router\Contracts\Attributes;
 
-use Zaphyr\Route\Contracts\MiddlewareAwareInterface;
-use Zaphyr\Route\Contracts\RouteCollectorInterface;
-use Zaphyr\Route\Contracts\RouteConditionInterface;
-use Zaphyr\Route\Contracts\RouterInterface;
+use Zaphyr\Router\Contracts\MiddlewareAwareInterface;
+use Zaphyr\Router\Contracts\RouteCollectorInterface;
+use Zaphyr\Router\Contracts\RouteConditionInterface;
+use Zaphyr\Router\Contracts\RouterInterface;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>

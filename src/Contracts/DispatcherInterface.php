@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route\Contracts;
+namespace Zaphyr\Router\Contracts;
 
 use Psr\Http\Server\RequestHandlerInterface;
-use Zaphyr\Route\Contracts\Attributes\RouteInterface;
+use Zaphyr\Router\Contracts\Attributes\RouteInterface;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>

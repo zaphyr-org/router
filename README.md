@@ -1,10 +1,10 @@
-![License](https://img.shields.io/github/license/zaphyr-org/route?style=for-the-badge)
-![Version](https://img.shields.io/packagist/v/zaphyr-org/route?style=for-the-badge)
-![Downloads](https://img.shields.io/packagist/dt/zaphyr-org/route?style=for-the-badge)
-![Stars](https://img.shields.io/github/stars/zaphyr-org/route?style=for-the-badge)
-![Issues](https://img.shields.io/github/issues/zaphyr-org/route?style=for-the-badge)
+![License](https://img.shields.io/github/license/zaphyr-org/router?style=for-the-badge)
+![Version](https://img.shields.io/packagist/v/zaphyr-org/router?style=for-the-badge)
+![Downloads](https://img.shields.io/packagist/dt/zaphyr-org/router?style=for-the-badge)
+![Stars](https://img.shields.io/github/stars/zaphyr-org/router?style=for-the-badge)
+![Issues](https://img.shields.io/github/issues/zaphyr-org/router?style=for-the-badge)
 
-# Route
+# Router
 
 
 
@@ -14,15 +14,15 @@ You need `PHP => 8.1.0` but the latest stable version of PHP is recommended.
 
 ## Installation
 
-It's recommended that you use [Composer](https://getcomposer.org/) to install the route repository.
+It's recommended that you use [Composer](https://getcomposer.org/) to install the router repository.
 
 ```console
-composer require zaphyr-org/route
+composer require zaphyr-org/router
 ```
 
 ## Documentation
 
-You can read the full documentation [here](https://zaphyr.org/docs/1.x/repositories/route).
+You can read the full documentation [here](https://zaphyr.org/docs/1.x/repositories/router).
 
 ## Changelog
 
@@ -30,7 +30,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Issues
 
-Bug reports and feature requests can be submitted on the [GitHub Issue Tracker](https://github.com/zaphyr-org/route/issues).
+Bug reports and feature requests can be submitted on the [GitHub Issue Tracker](https://github.com/zaphyr-org/router/issues).
 
 ## Security
 

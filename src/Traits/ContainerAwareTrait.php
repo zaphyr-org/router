@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route\Traits;
+namespace Zaphyr\Router\Traits;
 
 use Psr\Container\ContainerInterface;
-use Zaphyr\Route\Contracts\ContainerAwareInterface;
-use Zaphyr\Route\Exceptions\RouteException;
+use Zaphyr\Router\Contracts\ContainerAwareInterface;
+use Zaphyr\Router\Exceptions\RouteException;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>

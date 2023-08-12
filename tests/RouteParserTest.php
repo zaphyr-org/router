@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\RouteTests;
+namespace Zaphyr\RouterTests;
 
 use PHPUnit\Framework\TestCase;
-use Zaphyr\Route\RouteParser;
+use Zaphyr\Router\RouteParser;
 
 class RouteParserTest extends TestCase
 {

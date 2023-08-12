@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\RouteTests\TestAssets;
+namespace Zaphyr\RouterTests\TestAssets;
 
 use Psr\Http\Message\ResponseInterface;
 use Zaphyr\HttpMessage\Response;
-use Zaphyr\Route\Attributes\Get;
-use Zaphyr\Route\Attributes\Group;
+use Zaphyr\Router\Attributes\Get;
+use Zaphyr\Router\Attributes\Group;
 
 #[Group('/condition-group', scheme: 'https', host: 'example.com', port: 8080)]
 class ConditionGroupController

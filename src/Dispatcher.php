@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route;
+namespace Zaphyr\Router;
 
 use FastRoute\DataGenerator\GroupCountBased;
 use FastRoute\Dispatcher\RegexBasedAbstract;
@@ -10,12 +10,12 @@ use FastRoute\RouteCollector;
 use FastRoute\RouteParser\Std;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zaphyr\Route\Contracts\Attributes\RouteInterface;
-use Zaphyr\Route\Contracts\DispatcherInterface;
-use Zaphyr\Route\Exceptions\MethodNotAllowedException;
-use Zaphyr\Route\Exceptions\MiddlewareException;
-use Zaphyr\Route\Exceptions\NotFoundException;
-use Zaphyr\Route\Traits\MiddlewareAwareTrait;
+use Zaphyr\Router\Contracts\Attributes\RouteInterface;
+use Zaphyr\Router\Contracts\DispatcherInterface;
+use Zaphyr\Router\Exceptions\MethodNotAllowedException;
+use Zaphyr\Router\Exceptions\MiddlewareException;
+use Zaphyr\Router\Exceptions\NotFoundException;
+use Zaphyr\Router\Traits\MiddlewareAwareTrait;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>

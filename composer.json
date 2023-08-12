@@ -1,5 +1,5 @@
 {
-    "name": "zaphyr-org/route",
+    "name": "zaphyr-org/router",
     "description": "",
     "keywords": [],
     "license": "MIT",
@@ -30,12 +30,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Zaphyr\\Route\\": "src/"
+            "Zaphyr\\Router\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Zaphyr\\RouteTests\\": "tests/"
+            "Zaphyr\\RouterTests\\": "tests/"
         }
     },
     "scripts": {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route\Contracts;
+namespace Zaphyr\Router\Contracts;
 
-use Zaphyr\Route\Contracts\Attributes\RouteInterface;
-use Zaphyr\Route\Exceptions\RouteException;
+use Zaphyr\Router\Contracts\Attributes\RouteInterface;
+use Zaphyr\Router\Exceptions\RouteException;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>

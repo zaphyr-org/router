@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route\Contracts;
+namespace Zaphyr\Router\Contracts;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>

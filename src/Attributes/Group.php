@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route\Attributes;
+namespace Zaphyr\Router\Attributes;
 
 use Attribute;
 use Psr\Http\Server\MiddlewareInterface;
-use Zaphyr\Route\Contracts\Attributes\GroupInterface;
-use Zaphyr\Route\Contracts\Attributes\RouteInterface;
-use Zaphyr\Route\Contracts\RouterInterface;
-use Zaphyr\Route\Traits\MiddlewareAwareTrait;
-use Zaphyr\Route\Traits\RouteCollectorTrait;
-use Zaphyr\Route\Traits\RouteConditionTrait;
+use Zaphyr\Router\Contracts\Attributes\GroupInterface;
+use Zaphyr\Router\Contracts\Attributes\RouteInterface;
+use Zaphyr\Router\Contracts\RouterInterface;
+use Zaphyr\Router\Traits\MiddlewareAwareTrait;
+use Zaphyr\Router\Traits\RouteCollectorTrait;
+use Zaphyr\Router\Traits\RouteConditionTrait;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>

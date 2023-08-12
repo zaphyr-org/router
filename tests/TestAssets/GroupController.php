@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\RouteTests\TestAssets;
+namespace Zaphyr\RouterTests\TestAssets;
 
 use Psr\Http\Message\ResponseInterface;
 use Zaphyr\HttpMessage\Response;
-use Zaphyr\Route\Attributes\Group;
-use Zaphyr\Route\Attributes\Route;
+use Zaphyr\Router\Attributes\Group;
+use Zaphyr\Router\Attributes\Route;
 
 #[Group('/group')]
 class GroupController

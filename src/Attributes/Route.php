@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route\Attributes;
+namespace Zaphyr\Router\Attributes;
 
 use Attribute;
 use Psr\Http\Message\ResponseInterface;
@@ -10,12 +10,12 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Throwable;
-use Zaphyr\Route\Contracts\Attributes\GroupInterface;
-use Zaphyr\Route\Contracts\Attributes\RouteInterface;
-use Zaphyr\Route\Exceptions\RouteException;
-use Zaphyr\Route\Traits\ContainerAwareTrait;
-use Zaphyr\Route\Traits\MiddlewareAwareTrait;
-use Zaphyr\Route\Traits\RouteConditionTrait;
+use Zaphyr\Router\Contracts\Attributes\GroupInterface;
+use Zaphyr\Router\Contracts\Attributes\RouteInterface;
+use Zaphyr\Router\Exceptions\RouteException;
+use Zaphyr\Router\Traits\ContainerAwareTrait;
+use Zaphyr\Router\Traits\MiddlewareAwareTrait;
+use Zaphyr\Router\Traits\RouteConditionTrait;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>

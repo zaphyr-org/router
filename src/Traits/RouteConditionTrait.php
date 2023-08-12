@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route\Traits;
+namespace Zaphyr\Router\Traits;
 
-use Zaphyr\Route\Exceptions\RouteException;
+use Zaphyr\Router\Exceptions\RouteException;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>

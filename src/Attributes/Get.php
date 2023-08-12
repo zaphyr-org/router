@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route\Attributes;
+namespace Zaphyr\Router\Attributes;
 
 use Attribute;
 use Psr\Http\Server\MiddlewareInterface;

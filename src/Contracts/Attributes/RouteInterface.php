@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route\Contracts\Attributes;
+namespace Zaphyr\Router\Contracts\Attributes;
 
 use Psr\Http\Server\MiddlewareInterface;
-use Zaphyr\Route\Contracts\ContainerAwareInterface;
-use Zaphyr\Route\Contracts\MiddlewareAwareInterface;
-use Zaphyr\Route\Contracts\RouteConditionInterface;
-use Zaphyr\Route\Exceptions\RouteException;
+use Zaphyr\Router\Contracts\ContainerAwareInterface;
+use Zaphyr\Router\Contracts\MiddlewareAwareInterface;
+use Zaphyr\Router\Contracts\RouteConditionInterface;
+use Zaphyr\Router\Exceptions\RouteException;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>

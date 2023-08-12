@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route\Traits;
+namespace Zaphyr\Router\Traits;
 
 use Psr\Http\Server\MiddlewareInterface;
-use Zaphyr\Route\Exceptions\MiddlewareException;
+use Zaphyr\Router\Exceptions\MiddlewareException;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>

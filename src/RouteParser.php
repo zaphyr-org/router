@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route;
+namespace Zaphyr\Router;
 
 use FastRoute\RouteParser\Std as FastRouteParser;
-use Zaphyr\Route\Contracts\RouteParserInterface;
+use Zaphyr\Router\Contracts\RouteParserInterface;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>

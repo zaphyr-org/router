@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route\Exceptions;
+namespace Zaphyr\Router\Exceptions;
 
 use Exception;
 

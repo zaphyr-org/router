@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\RouteTests;
+namespace Zaphyr\RouterTests;
 
 use FastRoute\RouteCollector;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
-use Zaphyr\Route\Contracts\Attributes\GroupInterface;
-use Zaphyr\Route\Contracts\Attributes\RouteInterface;
-use Zaphyr\Route\Dispatcher;
-use Zaphyr\Route\Exceptions\MethodNotAllowedException;
-use Zaphyr\Route\Exceptions\NotFoundException;
-use Zaphyr\RouteTests\TestAssets\MiddlewareTwo;
+use Zaphyr\Router\Contracts\Attributes\GroupInterface;
+use Zaphyr\Router\Contracts\Attributes\RouteInterface;
+use Zaphyr\Router\Dispatcher;
+use Zaphyr\Router\Exceptions\MethodNotAllowedException;
+use Zaphyr\Router\Exceptions\NotFoundException;
 
 class DispatcherTest extends TestCase
 {

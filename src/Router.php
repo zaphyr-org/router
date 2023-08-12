@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route;
+namespace Zaphyr\Router;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zaphyr\Route\Attributes\Group;
-use Zaphyr\Route\Attributes\Route;
-use Zaphyr\Route\Contracts\Attributes\GroupInterface;
-use Zaphyr\Route\Contracts\Attributes\RouteInterface;
-use Zaphyr\Route\Contracts\DispatcherInterface;
-use Zaphyr\Route\Contracts\RouteParserInterface;
-use Zaphyr\Route\Contracts\RouterInterface;
-use Zaphyr\Route\Exceptions\MethodNotAllowedException;
-use Zaphyr\Route\Exceptions\MiddlewareException;
-use Zaphyr\Route\Exceptions\NotFoundException;
-use Zaphyr\Route\Exceptions\RouteException;
-use Zaphyr\Route\Traits\ContainerAwareTrait;
-use Zaphyr\Route\Traits\MiddlewareAwareTrait;
-use Zaphyr\Route\Traits\RouteCollectorTrait;
-use Zaphyr\Route\Utils\AttributesResolver;
+use Zaphyr\Router\Attributes\Group;
+use Zaphyr\Router\Attributes\Route;
+use Zaphyr\Router\Contracts\Attributes\GroupInterface;
+use Zaphyr\Router\Contracts\Attributes\RouteInterface;
+use Zaphyr\Router\Contracts\DispatcherInterface;
+use Zaphyr\Router\Contracts\RouteParserInterface;
+use Zaphyr\Router\Contracts\RouterInterface;
+use Zaphyr\Router\Exceptions\MethodNotAllowedException;
+use Zaphyr\Router\Exceptions\MiddlewareException;
+use Zaphyr\Router\Exceptions\NotFoundException;
+use Zaphyr\Router\Exceptions\RouteException;
+use Zaphyr\Router\Traits\ContainerAwareTrait;
+use Zaphyr\Router\Traits\MiddlewareAwareTrait;
+use Zaphyr\Router\Traits\RouteCollectorTrait;
+use Zaphyr\Router\Utils\AttributesResolver;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>

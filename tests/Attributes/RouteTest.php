@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\RouteTests\Attributes;
+namespace Zaphyr\RouterTests\Attributes;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Zaphyr\HttpMessage\Response;
-use Zaphyr\Route\Attributes\Group;
-use Zaphyr\Route\Attributes\Route;
-use Zaphyr\Route\Exceptions\MiddlewareException;
-use Zaphyr\Route\Exceptions\RouteException;
-use Zaphyr\Route\Traits\ContainerAwareTrait;
-use Zaphyr\RouteTests\TestAssets\Controller;
-use Zaphyr\RouteTests\TestAssets\DependencyInjectionController;
-use Zaphyr\RouteTests\TestAssets\Middleware;
-use Zaphyr\RouteTests\TestAssets\MiddlewareTwo;
+use Zaphyr\Router\Attributes\Group;
+use Zaphyr\Router\Attributes\Route;
+use Zaphyr\Router\Exceptions\MiddlewareException;
+use Zaphyr\Router\Exceptions\RouteException;
+use Zaphyr\Router\Traits\ContainerAwareTrait;
+use Zaphyr\RouterTests\TestAssets\Controller;
+use Zaphyr\RouterTests\TestAssets\DependencyInjectionController;
+use Zaphyr\RouterTests\TestAssets\Middleware;
+use Zaphyr\RouterTests\TestAssets\MiddlewareTwo;
 
 class RouteTest extends TestCase
 {

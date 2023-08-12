@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\Route\Utils;
+namespace Zaphyr\Router\Utils;
 
 use ReflectionAttribute;
 use ReflectionClass;
-use Zaphyr\Route\Attributes\Group;
-use Zaphyr\Route\Attributes\Route;
-use Zaphyr\Route\Contracts\Attributes\GroupInterface;
-use Zaphyr\Route\Contracts\Attributes\RouteInterface;
-use Zaphyr\Route\Contracts\RouterInterface;
+use Zaphyr\Router\Attributes\Group;
+use Zaphyr\Router\Attributes\Route;
+use Zaphyr\Router\Contracts\Attributes\GroupInterface;
+use Zaphyr\Router\Contracts\Attributes\RouteInterface;
+use Zaphyr\Router\Contracts\RouterInterface;
 
 /**
  * @author   merloxx <merloxx@zaphyr.org>

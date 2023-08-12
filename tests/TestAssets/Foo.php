@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\RouteTests\TestAssets;
+namespace Zaphyr\RouterTests\TestAssets;
 
 class Foo
 {

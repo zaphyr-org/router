@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\RouteTests;
+namespace Zaphyr\RouterTests;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -10,18 +10,18 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zaphyr\Container\Container;
 use Zaphyr\HttpMessage\Response;
 use Zaphyr\HttpMessage\ServerRequest;
-use Zaphyr\Route\Attributes\Group;
-use Zaphyr\Route\Exceptions\MethodNotAllowedException;
-use Zaphyr\Route\Exceptions\NotFoundException;
-use Zaphyr\Route\Exceptions\RouteException;
-use Zaphyr\Route\Router;
-use Zaphyr\RouteTests\TestAssets\ConditionController;
-use Zaphyr\RouteTests\TestAssets\ConditionGroupController;
-use Zaphyr\RouteTests\TestAssets\Controller;
-use Zaphyr\RouteTests\TestAssets\DependencyInjectionController;
-use Zaphyr\RouteTests\TestAssets\GroupController;
-use Zaphyr\RouteTests\TestAssets\Middleware;
-use Zaphyr\RouteTests\TestAssets\MiddlewareController;
+use Zaphyr\Router\Attributes\Group;
+use Zaphyr\Router\Exceptions\MethodNotAllowedException;
+use Zaphyr\Router\Exceptions\NotFoundException;
+use Zaphyr\Router\Exceptions\RouteException;
+use Zaphyr\Router\Router;
+use Zaphyr\RouterTests\TestAssets\ConditionController;
+use Zaphyr\RouterTests\TestAssets\ConditionGroupController;
+use Zaphyr\RouterTests\TestAssets\Controller;
+use Zaphyr\RouterTests\TestAssets\DependencyInjectionController;
+use Zaphyr\RouterTests\TestAssets\GroupController;
+use Zaphyr\RouterTests\TestAssets\Middleware;
+use Zaphyr\RouterTests\TestAssets\MiddlewareController;
 
 class RouterIntegrationTest extends TestCase
 {

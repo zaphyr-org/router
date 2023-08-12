@@ -7,8 +7,8 @@ parameters:
         maximumNumberOfProcesses: 1
     ignoreErrors:
         -
-            message: '%Parameter #1 \$callable of method Zaphyr\\Route\\Attributes\\Route::setCallable\(\) expects array<string, string>|(callable\(\): mixed)|string, array{class-string, non-empty-string} given.%'
+            message: '%Parameter #1 \$callable of method Zaphyr\\Router\\Attributes\\Route::setCallable\(\) expects array<string, string>|(callable\(\): mixed)|string, array{class-string, non-empty-string} given.%'
             path: src/Utils/AttributesResolver.php
         -
-            message: '%Method Zaphyr\\Route\\Dispatcher::dispatchVariableRoute\(\) has parameter (\$routeData|\$uri) with no type specified.%'
+            message: '%Method Zaphyr\\Router\\Dispatcher::dispatchVariableRoute\(\) has parameter (\$routeData|\$uri) with no type specified.%'
             path: src/Dispatcher.php

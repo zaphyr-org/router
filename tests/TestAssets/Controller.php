@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\RouteTests\TestAssets;
+namespace Zaphyr\RouterTests\TestAssets;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zaphyr\HttpMessage\Response;
-use Zaphyr\Route\Attributes\Any;
-use Zaphyr\Route\Attributes\Delete;
-use Zaphyr\Route\Attributes\Get;
-use Zaphyr\Route\Attributes\Head;
-use Zaphyr\Route\Attributes\Options;
-use Zaphyr\Route\Attributes\Patch;
-use Zaphyr\Route\Attributes\Post;
-use Zaphyr\Route\Attributes\Put;
-use Zaphyr\Route\Attributes\Route;
+use Zaphyr\Router\Attributes\Any;
+use Zaphyr\Router\Attributes\Delete;
+use Zaphyr\Router\Attributes\Get;
+use Zaphyr\Router\Attributes\Head;
+use Zaphyr\Router\Attributes\Options;
+use Zaphyr\Router\Attributes\Patch;
+use Zaphyr\Router\Attributes\Post;
+use Zaphyr\Router\Attributes\Put;
+use Zaphyr\Router\Attributes\Route;
 
 class Controller
 {
