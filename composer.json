@@ -25,6 +25,7 @@
         "phpunit/phpunit": "^10.0",
         "roave/security-advisories": "dev-latest",
         "squizlabs/php_codesniffer": "^4.0",
+        "zaphyr-org/container": "^1.0",
         "zaphyr-org/http-message": "^1.0"
     },
     "autoload": {
