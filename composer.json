@@ -1,7 +1,14 @@
 {
     "name": "zaphyr-org/router",
-    "description": "",
-    "keywords": [],
+    "description": "PSR-7 router supporting attribute-based routing, complete with PSR-15 middleware and PSR-11 container support, all built upon the foundation of FastRoute.",
+    "keywords": [
+        "router",
+        "routing",
+        "fast-route",
+        "psr-7",
+        "psr-11",
+        "psr-15"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -27,6 +34,17 @@
         "squizlabs/php_codesniffer": "^4.0",
         "zaphyr-org/container": "^1.0",
         "zaphyr-org/http-message": "^1.0"
+    },
+    "provide": {
+        "psr/container-implementation": "^2.0",
+        "psr/http-message-implementation": "^2.0",
+        "psr/http-server-handler-implementation": "^1.0",
+        "psr/http-server-middleware-implementation": "^1.0"
+    },
+    "suggest": {
+        "zaphyr-org/container": "Powerful auto wiring dependency injection container including PSR-11.",
+        "zaphyr-org/http-emitter": "Emits PSR-7 responses to the PHP Server API.",
+        "zaphyr-org/http-message": "Lightweight and strict implementation of PSR-7 HTTP Message including PSR-17 HTTP Factories."
     },
     "autoload": {
         "psr-4": {
