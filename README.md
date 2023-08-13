@@ -6,7 +6,10 @@
 
 # Router
 
-
+Robust [PSR-7](https://www.php-fig.org/psr/psr-7) router supporting
+[attribute-based](https://www.php.net/manual/en/language.attributes.overview.php) routing, complete with
+[PSR-15](https://www.php-fig.org/psr/psr-15/) middleware and [PSR-11](https://www.php-fig.org/psr/psr-11) container
+support, all built upon the foundation of [FastRoute](https://github.com/nikic/FastRoute).
 
 ## System Requirements
 
