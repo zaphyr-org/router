@@ -17,14 +17,14 @@ interface MiddlewareAwareInterface
      *
      * @return $this
      */
-    public function addMiddleware(MiddlewareInterface|string $middleware): static;
+    public function setMiddleware(MiddlewareInterface|string $middleware): static;
 
     /**
      * @param MiddlewareInterface[]|class-string[] $middlewares
      *
      * @return $this
      */
-    public function addMiddlewares(array $middlewares): static;
+    public function setMiddlewares(array $middlewares): static;
 
     /**
      * @return MiddlewareInterface[]|class-string[]

@@ -20,7 +20,7 @@ trait MiddlewareAwareTrait
     /**
      * {@inheritdoc}
      */
-    public function addMiddleware(MiddlewareInterface|string $middleware): static
+    public function setMiddleware(MiddlewareInterface|string $middleware): static
     {
         $this->middlewares[] = $middleware;
 
@@ -30,10 +30,10 @@ trait MiddlewareAwareTrait
     /**
      * {@inheritdoc}
      */
-    public function addMiddlewares(array $middlewares): static
+    public function setMiddlewares(array $middlewares): static
     {
         foreach ($middlewares as $middleware) {
-            $this->addMiddleware($middleware);
+            $this->setMiddleware($middleware);
         }
 
         return $this;

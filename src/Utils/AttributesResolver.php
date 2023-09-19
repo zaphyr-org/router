@@ -70,7 +70,7 @@ class AttributesResolver
                                 $group
                                     ->add($route->getPath(), $route->getMethods(), [$controller, $method->getName()])
                                     ->setName($route->getName())
-                                    ->addMiddlewares($route->getMiddlewareStack());
+                                    ->setMiddlewares($route->getMiddlewareStack());
                             }
                         }
                     }

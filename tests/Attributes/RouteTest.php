@@ -311,37 +311,37 @@ class RouteTest extends TestCase
      * -------------------------------------------------
      */
 
-    public function testAddMiddlewareClassString(): void
+    public function testSetMiddlewareClassString(): void
     {
-        $this->route->addMiddleware(MiddlewareTwo::class);
+        $this->route->setMiddleware(MiddlewareTwo::class);
 
         self::assertEquals([MiddlewareTwo::class], $this->route->getMiddlewareStack());
     }
 
-    public function testAddMiddlewareInstance(): void
+    public function testSetMiddlewareInstance(): void
     {
-        $this->route->addMiddleware(new MiddlewareTwo());
+        $this->route->setMiddleware(new MiddlewareTwo());
 
         self::assertInstanceOf(MiddlewareTwo::class, $this->route->getMiddlewareStack()[0]);
     }
 
-    public function testAddMiddlewaresClassString(): void
+    public function testSetMiddlewaresClassString(): void
     {
-        $this->route->addMiddlewares([MiddlewareTwo::class]);
+        $this->route->setMiddlewares([MiddlewareTwo::class]);
 
         self::assertEquals([MiddlewareTwo::class], $this->route->getMiddlewareStack());
     }
 
-    public function testAddMiddlewaresInstances(): void
+    public function testSetMiddlewaresInstances(): void
     {
-        $this->route->addMiddlewares([new MiddlewareTwo()]);
+        $this->route->setMiddlewares([new MiddlewareTwo()]);
 
         self::assertInstanceOf(MiddlewareTwo::class, $this->route->getMiddlewareStack()[0]);
     }
 
     public function testShiftMiddlewareClassString(): void
     {
-        $this->route->addMiddlewares([MiddlewareTwo::class, MiddlewareTwo::class]);
+        $this->route->setMiddlewares([MiddlewareTwo::class, MiddlewareTwo::class]);
         $this->route->shiftMiddleware();
 
         self::assertEquals([MiddlewareTwo::class], $this->route->getMiddlewareStack());
@@ -349,7 +349,7 @@ class RouteTest extends TestCase
 
     public function testShiftMiddlewareInstances(): void
     {
-        $this->route->addMiddlewares([new Middleware(1), new Middleware(2), new Middleware(3)]);
+        $this->route->setMiddlewares([new Middleware(1), new Middleware(2), new Middleware(3)]);
         $this->route->shiftMiddleware();
 
         self::assertEquals([new Middleware(2), new Middleware(3)], $this->route->getMiddlewareStack());

@@ -654,16 +654,16 @@ class RouterIntegrationTest extends TestCase
         $middlewareTwo = new Middleware(2);
         $middlewareThree = new Middleware(3);
 
-        $this->router->addMiddleware($middlewareOne);
+        $this->router->setMiddleware($middlewareOne);
         $this->router->group(
             '/foo',
             static function (Group $group) use ($middlewareThree) {
                 $group->get(
                     '/bar',
                     static fn() => new Response(),
-                )->addMiddleware($middlewareThree);
+                )->setMiddleware($middlewareThree);
             },
-        )->addMiddlewares([$middlewareTwo]);
+        )->setMiddlewares([$middlewareTwo]);
 
         $this->router->handle(new ServerRequest(uri: '/foo/bar'));
 
@@ -674,7 +674,7 @@ class RouterIntegrationTest extends TestCase
 
     public function testMiddlewareWithAttributeIsOrderedCorrectly(): void
     {
-        $this->router->addMiddleware(new Middleware(1));
+        $this->router->setMiddleware(new Middleware(1));
         $this->router->setControllerRoutes([MiddlewareController::class]);
         $this->router->handle(new ServerRequest(uri: '/middleware/index'));
 
