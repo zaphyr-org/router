@@ -19,6 +19,7 @@ use Zaphyr\RouterTests\TestAssets\ConditionController;
 use Zaphyr\RouterTests\TestAssets\ConditionGroupController;
 use Zaphyr\RouterTests\TestAssets\Controller;
 use Zaphyr\RouterTests\TestAssets\DependencyInjectionController;
+use Zaphyr\RouterTests\TestAssets\DIMiddleware;
 use Zaphyr\RouterTests\TestAssets\GroupController;
 use Zaphyr\RouterTests\TestAssets\Middleware;
 use Zaphyr\RouterTests\TestAssets\MiddlewareController;
@@ -1022,6 +1023,17 @@ class RouterIntegrationTest extends TestCase
         $this->router->setControllerRoutes([DependencyInjectionController::class]);
 
         $response = $this->router->handle(new ServerRequest(uri: '/container'));
+
+        self::assertSame('hello from foo', (string)$response->getBody());
+    }
+
+    public function testDependencyInjectionMiddleware(): void
+    {
+        $this->router->setContainer(new Container());
+
+        $this->router->add('/foo', ['GET'], static fn() => new Response())->setMiddleware(DIMiddleware::class);
+
+        $response = $this->router->handle(new ServerRequest(uri: '/foo'));
 
         self::assertSame('hello from foo', (string)$response->getBody());
     }

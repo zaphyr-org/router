@@ -15,6 +15,7 @@ use Zaphyr\Router\Contracts\DispatcherInterface;
 use Zaphyr\Router\Exceptions\MethodNotAllowedException;
 use Zaphyr\Router\Exceptions\MiddlewareException;
 use Zaphyr\Router\Exceptions\NotFoundException;
+use Zaphyr\Router\Traits\ContainerAwareTrait;
 use Zaphyr\Router\Traits\MiddlewareAwareTrait;
 
 /**
@@ -23,6 +24,7 @@ use Zaphyr\Router\Traits\MiddlewareAwareTrait;
 class Dispatcher extends RegexBasedAbstract implements DispatcherInterface
 {
     use MiddlewareAwareTrait;
+    use ContainerAwareTrait;
 
     /**
      * @param RouteCollector $routeCollector
@@ -78,7 +80,6 @@ class Dispatcher extends RegexBasedAbstract implements DispatcherInterface
     /**
      * @param RouteInterface $route
      *
-     * @throws MiddlewareException if the middleware is not callable
      * @return void
      */
     protected function setFoundMiddleware(RouteInterface $route): void

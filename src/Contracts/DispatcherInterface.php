@@ -10,7 +10,7 @@ use Zaphyr\Router\Contracts\Attributes\RouteInterface;
 /**
  * @author merloxx <merloxx@zaphyr.org>
  */
-interface DispatcherInterface extends MiddlewareAwareInterface, RequestHandlerInterface
+interface DispatcherInterface extends MiddlewareAwareInterface, ContainerAwareInterface, RequestHandlerInterface
 {
     /**
      * @param RouteInterface $route

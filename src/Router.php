@@ -168,6 +168,7 @@ class Router implements RouterInterface
 
             if ($this->getContainer() !== null) {
                 $route->setContainer($this->getContainer());
+                $this->dispatcher->setContainer($this->getContainer());
             }
 
             $this->dispatcher->addRoute($route->setPath($this->prepareRoutePath($route->getPath())));

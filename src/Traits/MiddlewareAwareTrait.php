@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Zaphyr\Router\Traits;
 
 use Psr\Http\Server\MiddlewareInterface;
+use Throwable;
 use Zaphyr\Router\Exceptions\MiddlewareException;
 
 /**
@@ -12,6 +13,8 @@ use Zaphyr\Router\Exceptions\MiddlewareException;
  */
 trait MiddlewareAwareTrait
 {
+    use ContainerAwareTrait;
+
     /**
      * @var MiddlewareInterface[]|class-string[]
      */
@@ -71,7 +74,13 @@ trait MiddlewareAwareTrait
     public function resolveMiddleware(MiddlewareInterface|string $middleware): MiddlewareInterface
     {
         if (is_string($middleware) && class_exists($middleware)) {
-            $middleware = new $middleware();
+            $container = $this->getContainer();
+
+            try {
+                $middleware = $container !== null ? $container->get($middleware) : new $middleware();
+            } catch (Throwable $exception) {
+                throw new MiddlewareException($exception->getMessage(), $exception->getCode(), $exception);
+            }
         }
 
         if ($middleware instanceof MiddlewareInterface) {
