@@ -6,11 +6,13 @@ namespace Zaphyr\Router\Utils;
 
 use ReflectionAttribute;
 use ReflectionClass;
+use ReflectionException;
 use Zaphyr\Router\Attributes\Group;
 use Zaphyr\Router\Attributes\Route;
 use Zaphyr\Router\Contracts\Attributes\GroupInterface;
 use Zaphyr\Router\Contracts\Attributes\RouteInterface;
 use Zaphyr\Router\Contracts\RouterInterface;
+use Zaphyr\Router\Exceptions\RouteException;
 
 /**
  * @author   merloxx <merloxx@zaphyr.org>
@@ -22,11 +24,16 @@ class AttributesResolver
      * @param class-string     $controller
      * @param RouteInterface[] $routes
      *
+     * @throws RouteException if the controller does not exist
      * @return void
      */
     public static function appendRoutes(string $controller, array &$routes): void
     {
-        $reflection = new ReflectionClass($controller);
+        try {
+            $reflection = new ReflectionClass($controller);
+        } catch (ReflectionException $exception) {
+            throw new RouteException($exception->getMessage(), $exception->getCode(), $exception);
+        }
 
         foreach ($reflection->getMethods() as $method) {
             foreach ($method->getAttributes(Route::class, ReflectionAttribute::IS_INSTANCEOF) as $attribute) {
@@ -47,11 +54,17 @@ class AttributesResolver
      * @param GroupInterface[] $groups
      * @param RouterInterface  $router
      *
+     * @throws RouteException if the controller does not exist
      * @return void
      */
     public static function appendGroups(string $controller, array &$groups, RouterInterface $router): void
     {
-        $reflection = new ReflectionClass($controller);
+        try {
+            $reflection = new ReflectionClass($controller);
+        } catch (ReflectionException $exception) {
+            throw new RouteException($exception->getMessage(), $exception->getCode(), $exception);
+        }
+
         $attributeGroups = $reflection->getAttributes(Group::class, ReflectionAttribute::IS_INSTANCEOF);
 
         foreach ($attributeGroups as $attribute) {

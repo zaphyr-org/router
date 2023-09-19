@@ -51,7 +51,7 @@ class RouterIntegrationTest extends TestCase
         self::assertSame('index', (string)$response->getBody());
     }
 
-     public function testConstructorSetRoutePatterns(): void
+    public function testConstructorSetRoutePatterns(): void
     {
         $router = new Router(routePatterns: ['slug' => '[a-z0-9-]+']);
 
@@ -79,6 +79,13 @@ class RouterIntegrationTest extends TestCase
         $response = $this->router->handle(new ServerRequest(uri: '/index'));
 
         self::assertSame('index', (string)$response->getBody());
+    }
+
+    public function testSetControllerRoutesThrowsExceptionWhenControllerDoesNotExist(): void
+    {
+        $this->expectException(RouteException::class);
+
+        $this->router->setControllerRoutes([NonExistingController::class]);
     }
 
     /* -------------------------------------------------
@@ -111,7 +118,7 @@ class RouterIntegrationTest extends TestCase
     public function testSetRoutePatterns(): void
     {
         $this->router->setRoutePatterns([
-            'slug' => '[a-z0-9-]+'
+            'slug' => '[a-z0-9-]+',
         ]);
 
         $this->router->get('/{slug}', function ($request, $params) {
@@ -150,22 +157,22 @@ class RouterIntegrationTest extends TestCase
             'numeric' => [
                 'pattern' => '/{id:numeric}',
                 'path' => '/1',
-                'expected' => ['id' => '1']
+                'expected' => ['id' => '1'],
             ],
             'alpha' => [
                 'pattern' => '/{name:alpha}',
                 'path' => '/foo',
-                'expected' => ['name' => 'foo']
+                'expected' => ['name' => 'foo'],
             ],
             'alphanum' => [
                 'pattern' => '/{name:alphanum}',
                 'path' => '/foo1',
-                'expected' => ['name' => 'foo1']
+                'expected' => ['name' => 'foo1'],
             ],
             'alphanum_dash' => [
                 'pattern' => '/{slug:alphanum_dash}',
                 'path' => '/foo-1',
-                'expected' => ['slug' => 'foo-1']
+                'expected' => ['slug' => 'foo-1'],
             ],
         ];
     }
@@ -982,14 +989,14 @@ class RouterIntegrationTest extends TestCase
 
     public function testGetPathFromName(): void
     {
-        $this->router->get('/foo/{id:numeric}', static fn () => new Response())->setName('foo');
+        $this->router->get('/foo/{id:numeric}', static fn() => new Response())->setName('foo');
 
         self::assertEquals('/foo/123', $this->router->getPathFromName('foo', ['id' => 123]));
     }
 
     public function testGetPathFromNameWithoutParams(): void
     {
-        $this->router->get('/foo', static fn () => new Response())->setName('foo');
+        $this->router->get('/foo', static fn() => new Response())->setName('foo');
 
         self::assertEquals('/foo', $this->router->getPathFromName('foo'));
     }
@@ -998,7 +1005,7 @@ class RouterIntegrationTest extends TestCase
     {
         $this->expectException(RouteException::class);
 
-        $this->router->get('/foo/{id:numeric}', static fn () => new Response())->setName('foo');
+        $this->router->get('/foo/{id:numeric}', static fn() => new Response())->setName('foo');
 
         self::assertEquals('/foo/123', $this->router->getPathFromName('foo'));
     }
