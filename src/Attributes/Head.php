@@ -16,7 +16,7 @@ class Head extends Route
     /**
      * @param string                               $path
      * @param string                               $name
-     * @param MiddlewareInterface[]|class-string[] $middlewares
+     * @param MiddlewareInterface[]|class-string[] $middlewares Will be renamed to "middleware" in v2.0.
      * @param string                               $scheme
      * @param string                               $host
      * @param int|null                             $port
