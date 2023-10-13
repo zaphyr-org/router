@@ -85,10 +85,10 @@ class Dispatcher extends RegexBasedAbstract implements DispatcherInterface
     protected function setFoundMiddleware(RouteInterface $route): void
     {
         if ($group = $route->getGroup()) {
-            $this->setMiddlewares($group->getMiddlewareStack());
+            $this->setMiddleware($group->getMiddlewareStack());
         }
 
-        $this->setMiddlewares($route->getMiddlewareStack());
+        $this->setMiddleware($route->getMiddlewareStack());
 
         $this->setMiddleware($route);
     }

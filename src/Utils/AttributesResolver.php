@@ -83,7 +83,7 @@ class AttributesResolver
                                 $group
                                     ->add($route->getPath(), $route->getMethods(), [$controller, $method->getName()])
                                     ->setName($route->getName())
-                                    ->setMiddlewares($route->getMiddlewareStack());
+                                    ->setMiddleware($route->getMiddlewareStack());
                             }
                         }
                     }

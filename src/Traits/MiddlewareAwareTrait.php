@@ -23,9 +23,13 @@ trait MiddlewareAwareTrait
     /**
      * {@inheritdoc}
      */
-    public function setMiddleware(MiddlewareInterface|string $middleware): static
+    public function setMiddleware(MiddlewareInterface|string|array $middleware): static
     {
-        $this->middlewares[] = $middleware;
+        $middleware = is_array($middleware) ? $middleware : [$middleware];
+
+        foreach ($middleware as $item) {
+            $this->middlewares[] = $item;
+        }
 
         return $this;
     }
@@ -35,11 +39,7 @@ trait MiddlewareAwareTrait
      */
     public function setMiddlewares(array $middlewares): static
     {
-        foreach ($middlewares as $middleware) {
-            $this->setMiddleware($middleware);
-        }
-
-        return $this;
+        return $this->setMiddleware($middlewares);
     }
 
     /**

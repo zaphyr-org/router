@@ -671,7 +671,7 @@ class RouterIntegrationTest extends TestCase
                     static fn() => new Response(),
                 )->setMiddleware($middlewareThree);
             },
-        )->setMiddlewares([$middlewareTwo]);
+        )->setMiddleware([$middlewareTwo]);
 
         $this->router->handle(new ServerRequest(uri: '/foo/bar'));
 

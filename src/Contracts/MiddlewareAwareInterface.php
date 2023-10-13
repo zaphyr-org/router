@@ -13,16 +13,17 @@ use Zaphyr\Router\Exceptions\MiddlewareException;
 interface MiddlewareAwareInterface
 {
     /**
-     * @param MiddlewareInterface|class-string $middleware
+     * @param MiddlewareInterface|MiddlewareInterface[]|class-string|class-string[] $middleware
      *
      * @return $this
      */
-    public function setMiddleware(MiddlewareInterface|string $middleware): static;
+    public function setMiddleware(MiddlewareInterface|string|array $middleware): static;
 
     /**
      * @param MiddlewareInterface[]|class-string[] $middlewares
      *
      * @return $this
+     * @deprecated Will be removed in v2.0. Use "setMiddleware" instead.
      */
     public function setMiddlewares(array $middlewares): static;
 

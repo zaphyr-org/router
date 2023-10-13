@@ -214,13 +214,20 @@ class GroupTest extends TestCase
     }
 
     /* -------------------------------------------------
-     * MIDDLEWARES
+     * MIDDLEWARE
      * -------------------------------------------------
      */
 
     public function testSetMiddlewareClassString(): void
     {
         $this->group->setMiddleware(MiddlewareTwo::class);
+
+        self::assertEquals([MiddlewareTwo::class], $this->group->getMiddlewareStack());
+    }
+
+    public function testSetMiddlewareArrayClassString(): void
+    {
+        $this->group->setMiddleware([MiddlewareTwo::class]);
 
         self::assertEquals([MiddlewareTwo::class], $this->group->getMiddlewareStack());
     }
@@ -232,23 +239,16 @@ class GroupTest extends TestCase
         self::assertInstanceOf(MiddlewareTwo::class, $this->group->getMiddlewareStack()[0]);
     }
 
-    public function testSetMiddlewaresClassString(): void
+    public function testSetMiddlewareArrayInstances(): void
     {
-        $this->group->setMiddlewares([MiddlewareTwo::class]);
-
-        self::assertEquals([MiddlewareTwo::class], $this->group->getMiddlewareStack());
-    }
-
-    public function testSetMiddlewaresInstances(): void
-    {
-        $this->group->setMiddlewares([new MiddlewareTwo()]);
+        $this->group->setMiddleware([new MiddlewareTwo()]);
 
         self::assertInstanceOf(MiddlewareTwo::class, $this->group->getMiddlewareStack()[0]);
     }
 
     public function testShiftMiddlewareClassString(): void
     {
-        $this->group->setMiddlewares([MiddlewareTwo::class, MiddlewareTwo::class]);
+        $this->group->setMiddleware([MiddlewareTwo::class, MiddlewareTwo::class]);
         $this->group->shiftMiddleware();
 
         self::assertEquals([MiddlewareTwo::class], $this->group->getMiddlewareStack());
@@ -256,7 +256,7 @@ class GroupTest extends TestCase
 
     public function testShiftMiddlewareInstances(): void
     {
-        $this->group->setMiddlewares([new Middleware(1), new Middleware(2), new Middleware(3)]);
+        $this->group->setMiddleware([new Middleware(1), new Middleware(2), new Middleware(3)]);
         $this->group->shiftMiddleware();
 
         self::assertEquals([new Middleware(2), new Middleware(3)], $this->group->getMiddlewareStack());

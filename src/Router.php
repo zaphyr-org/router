@@ -134,7 +134,7 @@ class Router implements RouterInterface
             $this->prepareRoutes($request);
         }
 
-        return $this->dispatcher->setMiddlewares($this->getMiddlewareStack())->handle($request);
+        return $this->dispatcher->setMiddleware($this->getMiddlewareStack())->handle($request);
     }
 
     /**
