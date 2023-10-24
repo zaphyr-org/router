@@ -10,6 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zaphyr\Container\Container;
 use Zaphyr\HttpMessage\Response;
 use Zaphyr\HttpMessage\ServerRequest;
+use Zaphyr\HttpMessage\Uri;
 use Zaphyr\Router\Attributes\Group;
 use Zaphyr\Router\Exceptions\MethodNotAllowedException;
 use Zaphyr\Router\Exceptions\NotFoundException;
@@ -981,6 +982,23 @@ class RouterIntegrationTest extends TestCase
         $this->expectException(RouteException::class);
 
         $this->router->get('/foo', static fn() => new Response())->setPort(65537);
+    }
+
+    public function testRouteConditionsAreNotInherited(): void
+    {
+        $this->router->setControllerRoutes([ConditionController::class]);
+
+        $uri = new Uri('/port/1');
+        $uri = $uri->withPort(80);
+        $response = $this->router->handle(new ServerRequest(uri: $uri));
+
+        self::assertEquals('port 1', (string)$response->getBody());
+
+        $uri = new Uri('/port/2');
+        $uri = $uri->withPort(443);
+        $response = $this->router->handle(new ServerRequest(uri: $uri));
+
+        self::assertEquals('port 2', (string)$response->getBody());
     }
 
     /* -------------------------------------------------

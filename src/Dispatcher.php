@@ -10,6 +10,7 @@ use FastRoute\RouteCollector;
 use FastRoute\RouteParser\Std;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UriInterface;
 use Zaphyr\Router\Contracts\Attributes\RouteInterface;
 use Zaphyr\Router\Contracts\DispatcherInterface;
 use Zaphyr\Router\Exceptions\MethodNotAllowedException;
@@ -56,25 +57,43 @@ class Dispatcher extends RegexBasedAbstract implements DispatcherInterface
         [$this->staticRouteMap, $this->variableRouteData] = $this->routeCollector->getData();
 
         $method = $request->getMethod();
-        $path = $request->getUri()->getPath();
+        $uri = $request->getUri();
+        $path = $uri->getPath();
         $routeInfo = $this->dispatch($method, $path);
 
-        if ($routeInfo[0] === self::NOT_FOUND) {
-            throw new NotFoundException('Could not find route for path "' . $path . '"', 404);
-        }
+        switch ($routeInfo[0]) {
+            case self::NOT_FOUND:
+                throw new NotFoundException('Could not find route for path "' . $path . '"', 404);
+            case self::METHOD_NOT_ALLOWED:
+                throw new MethodNotAllowedException(
+                    'Method "' . $method . '" not allowed. Allowed methods are: ' . implode(', ', $routeInfo[1]),
+                    405
+                );
+            case self::FOUND:
+                $route = $routeInfo[1];
 
-        if ($routeInfo[0] === self::METHOD_NOT_ALLOWED) {
-            throw new MethodNotAllowedException(
-                'Method "' . $method . '" not allowed. Allowed methods are: ' . implode(', ', $routeInfo[1]),
-                405
-            );
-        }
+                if (!$this->matchesRouteConditions($route, $uri)) {
+                    throw new NotFoundException('Could not find route for path "' . $path . '"', 404);
+                }
 
-        if ($routeInfo[0] === self::FOUND) {
-            $this->setFoundMiddleware($routeInfo[1]->setParams($routeInfo[2]));
+                $this->setFoundMiddleware($route->setParams($routeInfo[2]));
         }
 
         return $this->shiftMiddleware()->process($request, $this);
+    }
+
+    /**
+     * @param RouteInterface $route
+     * @param UriInterface   $uri
+     *
+     * @return bool
+     */
+    protected function matchesRouteConditions(RouteInterface $route, UriInterface $uri): bool
+    {
+        return
+            ($route->getScheme() === null || $route->getScheme() === $uri->getScheme()) &&
+            ($route->getHost() === null || $route->getHost() === $uri->getHost()) &&
+            ($route->getPort() === null || $route->getPort() === $uri->getPort());
     }
 
     /**
