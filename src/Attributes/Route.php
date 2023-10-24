@@ -62,8 +62,8 @@ class Route implements RouteInterface
      * @param string[]                             $methods
      * @param string                               $name
      * @param MiddlewareInterface[]|class-string[] $middlewares Will be renamed to "middleware" in v2.0.
-     * @param string                               $scheme
-     * @param string                               $host
+     * @param string|null                          $scheme
+     * @param string|null                          $host
      * @param int|null                             $port
      *
      * @throws RouteException if the given HTTP method is invalid
@@ -73,8 +73,8 @@ class Route implements RouteInterface
         array $methods = ['GET'],
         string $name = '',
         array $middlewares = [],
-        string $scheme = '',
-        string $host = '',
+        string|null $scheme = null,
+        string|null $host = null,
         int|null $port = null
     ) {
         $this->setPath($path);

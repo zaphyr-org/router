@@ -154,15 +154,15 @@ class Router implements RouterInterface
         $uri = $request->getUri();
 
         foreach ($this->routes as $route) {
-            if ($route->getScheme() !== $uri->getScheme()) {
+            if ($route->getScheme() !== null && $route->getScheme() !== $uri->getScheme()) {
                 break;
             }
 
-            if ($route->getHost() !== $uri->getHost()) {
+            if ($route->getHost() !== null && $route->getHost() !== $uri->getHost()) {
                 break;
             }
 
-            if ($route->getPort() !== $uri->getPort()) {
+            if ($route->getPort() !== null && $route->getPort() !== $uri->getPort()) {
                 break;
             }
 

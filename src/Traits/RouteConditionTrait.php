@@ -20,19 +20,19 @@ trait RouteConditionTrait
     ];
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected string $scheme = '';
+    protected string|null $scheme;
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected string $host = '';
+    protected string|null $host;
 
     /**
      * @var int|null
      */
-    protected int|null $port = null;
+    protected int|null $port;
 
     /**
      * {@inheritdoc}
@@ -67,7 +67,7 @@ trait RouteConditionTrait
     /**
      * {@inheritdoc}
      */
-    public function getScheme(): string
+    public function getScheme(): string|null
     {
         return $this->scheme;
     }
@@ -85,7 +85,7 @@ trait RouteConditionTrait
     /**
      * {@inheritdoc}
      */
-    public function getHost(): string
+    public function getHost(): string|null
     {
         return $this->host;
     }
@@ -119,11 +119,11 @@ trait RouteConditionTrait
      */
     private function isNonStandardPort(): bool
     {
-        if ($this->scheme === '') {
-            return $this->host === '' || $this->port !== null;
+        if ($this->scheme === null) {
+            return $this->host === null || $this->port !== null;
         }
 
-        if ($this->host === '' || $this->port === null) {
+        if ($this->host === null || $this->port === null) {
             return false;
         }
 

@@ -652,7 +652,7 @@ class RouterIntegrationTest extends TestCase
     }
 
     /* -------------------------------------------------
-     * MIDDLEWARES
+     * MIDDLEWARE
      * -------------------------------------------------
      */
 

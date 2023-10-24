@@ -36,15 +36,15 @@ class Group implements GroupInterface
     /**
      * @param string                               $path
      * @param MiddlewareInterface[]|class-string[] $middlewares Will be renamed to "middleware" in v2.0.
-     * @param string                               $scheme
-     * @param string                               $host
+     * @param string|null                          $scheme
+     * @param string|null                          $host
      * @param int|null                             $port
      */
     public function __construct(
         protected string $path,
         array $middlewares = [],
-        string $scheme = '',
-        string $host = '',
+        string|null $scheme = null,
+        string|null $host = null,
         int|null $port = null
     ) {
         $this->path = '/' . trim($this->path, '/');
@@ -82,11 +82,11 @@ class Group implements GroupInterface
         $route = $this->router->add($this->path . $path, $methods, $callable);
         $route->setGroup($this);
 
-        if ($this->getScheme() !== '') {
+        if ($this->getScheme() !== null) {
             $route->setScheme($this->getScheme());
         }
 
-        if ($this->getHost() !== '') {
+        if ($this->getHost() !== null) {
             $route->setHost($this->getHost());
         }
 

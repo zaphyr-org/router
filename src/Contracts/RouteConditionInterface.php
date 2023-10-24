@@ -20,9 +20,9 @@ interface RouteConditionInterface
     public function setScheme(string $scheme): static;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getScheme(): string;
+    public function getScheme(): string|null;
 
     /**
      * @param string $host
@@ -32,9 +32,9 @@ interface RouteConditionInterface
     public function setHost(string $host): static;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHost(): string;
+    public function getHost(): string|null;
 
     /**
      * @param int $port

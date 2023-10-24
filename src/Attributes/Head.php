@@ -17,16 +17,16 @@ class Head extends Route
      * @param string                               $path
      * @param string                               $name
      * @param MiddlewareInterface[]|class-string[] $middlewares Will be renamed to "middleware" in v2.0.
-     * @param string                               $scheme
-     * @param string                               $host
+     * @param string|null                          $scheme
+     * @param string|null                          $host
      * @param int|null                             $port
      */
     public function __construct(
         string $path,
         string $name = '',
         array $middlewares = [],
-        string $scheme = '',
-        string $host = '',
+        string|null $scheme = null,
+        string|null $host = null,
         int|null $port = null
     ) {
         parent::__construct($path, ['HEAD'], $name, $middlewares, $scheme, $host, $port);
