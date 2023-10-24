@@ -11,12 +11,12 @@ class RouteParserTest extends TestCase
 {
     protected RouteParser $routeParser;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->routeParser = new RouteParser();
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unset($this->routeParser);
     }

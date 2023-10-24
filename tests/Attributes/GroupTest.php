@@ -21,12 +21,12 @@ class GroupTest extends TestCase
      */
     protected Group $group;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->group = new Group('/group');
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unset($this->group);
     }

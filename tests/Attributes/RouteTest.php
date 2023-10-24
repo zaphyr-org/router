@@ -24,12 +24,12 @@ class RouteTest extends TestCase
      */
     protected Route $route;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->route = new Route('/');
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unset($this->route);
     }

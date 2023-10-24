@@ -44,7 +44,7 @@ class DispatcherTest extends TestCase
      */
     protected ServerRequestInterface|MockObject $requestMock;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->routeCollectorMock = $this->createMock(RouteCollector::class);
         $this->dispatcher = new Dispatcher($this->routeCollectorMock);
@@ -54,7 +54,7 @@ class DispatcherTest extends TestCase
         $this->requestMock = $this->createMock(ServerRequestInterface::class);
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unset(
             $this->routeCollectorMock,

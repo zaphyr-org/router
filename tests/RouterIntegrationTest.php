@@ -28,12 +28,12 @@ class RouterIntegrationTest extends TestCase
 {
     protected Router $router;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->router = new Router();
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unset($this->router);
     }
