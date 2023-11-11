@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\RouterTests;
+namespace Zaphyr\RouterTests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Zaphyr\Router\RouteParser;

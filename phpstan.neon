@@ -5,13 +5,13 @@ parameters:
         - src
     parallel:
         maximumNumberOfProcesses: 1
+    checkGenericClassInNonGenericObjectType: false
     ignoreErrors:
         -
             message: '%Parameter #1 \$callable of method Zaphyr\\Router\\Attributes\\Route::setCallable\(\) expects array<string, string>|(callable\(\): mixed)|string, array{class-string, non-empty-string} given.%'
             path: src/Utils/AttributesResolver.php
         -
-            message: '%Dead catch - ReflectionException is never thrown in the try block.%'
-            path: src/Utils/AttributesResolver.php
+            message: '%Parameter #1 \$objectOrClass of class ReflectionClass constructor expects class-string<T of object>\|T of object, string given.%'
         -
             message: '%Method Zaphyr\\Router\\Dispatcher::dispatchVariableRoute\(\) has parameter (\$routeData|\$uri) with no type specified.%'
             path: src/Dispatcher.php

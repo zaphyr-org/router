@@ -29,11 +29,7 @@ class AttributesResolver
      */
     public static function appendRoutes(string $controller, array &$routes): void
     {
-        try {
-            $reflection = new ReflectionClass($controller);
-        } catch (ReflectionException $exception) {
-            throw new RouteException($exception->getMessage(), $exception->getCode(), $exception);
-        }
+        $reflection = self::getReflectionClass($controller);
 
         foreach ($reflection->getMethods() as $method) {
             foreach ($method->getAttributes(Route::class, ReflectionAttribute::IS_INSTANCEOF) as $attribute) {
@@ -59,12 +55,7 @@ class AttributesResolver
      */
     public static function appendGroups(string $controller, array &$groups, RouterInterface $router): void
     {
-        try {
-            $reflection = new ReflectionClass($controller);
-        } catch (ReflectionException $exception) {
-            throw new RouteException($exception->getMessage(), $exception->getCode(), $exception);
-        }
-
+        $reflection = self::getReflectionClass($controller);
         $attributeGroups = $reflection->getAttributes(Group::class, ReflectionAttribute::IS_INSTANCEOF);
 
         foreach ($attributeGroups as $attribute) {
@@ -90,6 +81,21 @@ class AttributesResolver
                 )->setRouter($router);
 
             $groups[] = $group;
+        }
+    }
+
+    /**
+     * @param string $controller
+     *
+     * @throws RouteException if the controller does not exist
+     * @return ReflectionClass
+     */
+    protected static function getReflectionClass(string $controller): ReflectionClass
+    {
+        try {
+            return new ReflectionClass($controller);
+        } catch (ReflectionException $exception) {
+            throw new RouteException($exception->getMessage(), $exception->getCode(), $exception);
         }
     }
 }

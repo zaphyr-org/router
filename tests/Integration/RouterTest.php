@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\RouterTests;
+namespace Zaphyr\RouterTests\Integration;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -25,7 +25,7 @@ use Zaphyr\RouterTests\TestAssets\GroupController;
 use Zaphyr\RouterTests\TestAssets\Middleware;
 use Zaphyr\RouterTests\TestAssets\MiddlewareController;
 
-class RouterIntegrationTest extends TestCase
+class RouterTest extends TestCase
 {
     protected Router $router;
 

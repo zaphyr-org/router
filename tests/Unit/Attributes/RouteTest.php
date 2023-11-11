@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\RouterTests\Attributes;
+namespace Zaphyr\RouterTests\Unit\Attributes;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -383,6 +383,17 @@ class RouteTest extends TestCase
         $this->expectException(MiddlewareException::class);
 
         $this->route->resolveMiddleware('NonExistingMiddleware');
+    }
+
+    public function testResolveThrowsExceptionWhenMiddlewareNotResolvable(): void
+    {
+        $this->expectException(MiddlewareException::class);
+
+        $container = $this->createMock(ContainerInterface::class);
+        $container->method('get')->willThrowException(new \Exception());
+
+        $this->route->setContainer($container);
+        $this->route->resolveMiddleware(MiddlewareTwo::class);
     }
 
     /* -------------------------------------------------

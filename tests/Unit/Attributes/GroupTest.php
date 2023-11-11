@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\RouterTests\Attributes;
+namespace Zaphyr\RouterTests\Unit\Attributes;
 
 use PHPUnit\Framework\TestCase;
 use Zaphyr\HttpMessage\Response;
