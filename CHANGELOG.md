@@ -3,7 +3,18 @@
 All notable changes to this project will be documented in this file,
 in reverse chronological order by release.
 
-## [v1.1.1](https://github.com/zaphyr-org/router/compare/1.0.1...1.1.1) [2023-10-24]
+## [v1.1.2](https://github.com/zaphyr-org/router/compare/1.1.1...1.1.2) [2023-11-11]
+
+### New:
+* Added `.vscode/` to gitignore file
+
+### Changed:
+* Improved unit tests and moved tests to "Unit" or "Integration" directory
+
+### Removed:
+* Removed phpstan-phpunit from composer require-dev
+
+## [v1.1.1](https://github.com/zaphyr-org/router/compare/1.1.0...1.1.1) [2023-10-24]
 
 ### Changed:
 * Changed visibility to `protected` for `tearDown` and `setUp` methods in unit tests
