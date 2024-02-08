@@ -41,6 +41,11 @@ interface RouterInterface extends
     public function group(string $path, callable $callable): GroupInterface;
 
     /**
+     * @return RouteInterface[]
+     */
+    public function getRoutes(): array;
+
+    /**
      * @param string $name
      *
      * @throws RouteException if route name does not exist

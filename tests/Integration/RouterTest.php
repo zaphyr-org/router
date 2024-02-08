@@ -627,6 +627,19 @@ class RouterTest extends TestCase
     }
 
     /* -------------------------------------------------
+     * GET ROUTES
+     * -------------------------------------------------
+     */
+
+    public function testGetRoutes(): void
+    {
+        $this->router->add('/foo', ['GET'], static fn() => new Response());
+
+        self::assertCount(1, $this->router->getRoutes());
+        self::assertEquals('/foo', $this->router->getRoutes()[0]->getPath());
+    }
+
+    /* -------------------------------------------------
      * GET NAMED ROUTE
      * -------------------------------------------------
      */

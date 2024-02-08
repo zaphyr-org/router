@@ -187,6 +187,14 @@ class Router implements RouterInterface
     /**
      * {@inheritdoc}
      */
+    public function getRoutes(): array
+    {
+        return $this->routes;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getNamedRoute(string $name): RouteInterface
     {
         foreach ($this->routes as $route) {
