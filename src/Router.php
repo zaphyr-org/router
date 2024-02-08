@@ -151,8 +151,6 @@ class Router implements RouterInterface
             $group();
         }
 
-        $uri = $request->getUri();
-
         foreach ($this->routes as $route) {
             if ($this->getContainer() !== null) {
                 $route->setContainer($this->getContainer());

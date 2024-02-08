@@ -13,16 +13,10 @@ use Zaphyr\Router\Contracts\RouteParserInterface;
 class RouteParser implements RouteParserInterface
 {
     /**
-     * @var FastRouteParser
-     */
-    protected FastRouteParser $routeParser;
-
-    /**
      * @return void
      */
-    public function __construct()
+    public function __construct(protected FastRouteParser $routeParser = new FastRouteParser())
     {
-        $this->routeParser = new FastRouteParser();
     }
 
     /**
