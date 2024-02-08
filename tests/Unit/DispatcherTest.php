@@ -148,4 +148,21 @@ class DispatcherTest extends TestCase
 
         $this->dispatcher->handle($this->requestMock);
     }
+
+    public function testHandleAddsRouteToRequestAttributes(): void
+    {
+        $staticRoute['GET']['/'] = $this->routeMock;
+
+        $this->routeCollectorMock->expects(self::once())->method('getData')->willReturn([$staticRoute, []]);
+        $this->uriMock->expects(self::once())->method('getPath')->willReturn('/');
+        $this->requestMock->expects(self::once())->method('getMethod')->willReturn('GET');
+        $this->requestMock->expects(self::once())->method('getUri')->willReturn($this->uriMock);
+        $this->requestMock->expects(self::once())->method('withAttribute')->with(
+            RouteInterface::class,
+            $this->routeMock
+        )->willReturn($this->requestMock);
+        $this->routeMock->expects(self::once())->method('setParams')->willReturn($this->routeMock);
+
+        $this->dispatcher->handle($this->requestMock);
+    }
 }

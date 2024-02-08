@@ -76,6 +76,8 @@ class Dispatcher extends RegexBasedAbstract implements DispatcherInterface
                     throw new NotFoundException('Could not find route for path "' . $path . '"', 404);
                 }
 
+                $request = $request->withAttribute(RouteInterface::class, $route);
+
                 $this->setFoundMiddleware($route->setParams($routeInfo[2]));
         }
 
