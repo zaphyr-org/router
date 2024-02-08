@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file,
 in reverse chronological order by release.
 
+## [v1.2.0](https://github.com/zaphyr-org/router/compare/1.1.2...1.2.0) [2024-02-08]
+
+### New:
+* Added `getRoutes` method to Router class
+* Added matched route to the request attributes
+
 ## [v1.1.2](https://github.com/zaphyr-org/router/compare/1.1.1...1.1.2) [2023-11-11]
 
 ### New:
