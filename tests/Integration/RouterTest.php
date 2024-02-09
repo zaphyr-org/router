@@ -593,6 +593,22 @@ class RouterTest extends TestCase
         self::assertSame('{"bar":"bar"}', (string)$response->getBody());
     }
 
+
+    public function testHandleWithMultipleWildcardParamsRoute(): void
+    {
+        $this->router->get('/and/{foo}/and/{bar:alpha}/and/{baz:alpha}', function ($request, $params) {
+            $response = new Response();
+            $response->getBody()->write(json_encode($params));
+
+            return $response;
+        });
+
+        $response = $this->router->handle(new ServerRequest(uri: '/and/foo/and/bar/and/baz'));
+
+        self::assertSame(200, $response->getStatusCode());
+        self::assertSame('{"foo":"foo","bar":"bar","baz":"baz"}', (string)$response->getBody());
+    }
+
     public function testHandleWildcardParamsRouteThrowsNotFoundOnInvalidRoute(): void
     {
         $this->expectException(NotFoundException::class);

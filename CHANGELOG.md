@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file,
 in reverse chronological order by release.
 
+## [v1.2.1](https://github.com/zaphyr-org/router/compare/1.2.0...1.2.1) [2024-02-09]
+
+### Fixed:
+
+* The `getRoutes` method of the Router class now also takes group routes into account
+* Route condition attributes now correctly overwrite group condition attributes
+
 ## [v1.2.0](https://github.com/zaphyr-org/router/compare/1.1.2...1.2.0) [2024-02-08]
 
 ### New:
