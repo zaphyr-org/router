@@ -639,6 +639,34 @@ class RouterTest extends TestCase
         self::assertEquals('/foo', $this->router->getRoutes()[0]->getPath());
     }
 
+    public function testGetRoutesWithGroupRoutes(): void
+    {
+        $this->router->group('/foo', static function (Group $group) {
+            $group->add('/bar', ['GET'], static fn() => new Response());
+        });
+
+        self::assertCount(1, $this->router->getRoutes());
+        self::assertEquals('/foo/bar', $this->router->getRoutes()[0]->getPath());
+    }
+
+    public function testGetRoutesWithAttributeRoutes(): void
+    {
+        $this->router->setControllerRoutes([Controller::class]);
+
+        self::assertCount(11, $this->router->getRoutes());
+        self::assertEquals('/index', $this->router->getRoutes()[0]->getPath());
+        self::assertEquals('/name', $this->router->getRoutes()[1]->getPath());
+    }
+
+    public function testGetRoutesWithAttributeGroupRoutes(): void
+    {
+        $this->router->setControllerRoutes([GroupController::class]);
+
+        self::assertCount(2, $this->router->getRoutes());
+        self::assertEquals('/group/foo', $this->router->getRoutes()[0]->getPath());
+        self::assertEquals('/group/bar', $this->router->getRoutes()[1]->getPath());
+    }
+
     /* -------------------------------------------------
      * GET NAMED ROUTE
      * -------------------------------------------------

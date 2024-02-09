@@ -44,7 +44,12 @@ class Router implements RouterInterface
     /**
      * @var bool
      */
-    protected bool $isPrepared = false;
+    protected bool $isPreparedGroups = false;
+
+    /**
+     * @var bool
+     */
+    protected bool $isPreparedRoutes = false;
 
     /**
      * @var array<string, string>
@@ -130,20 +135,21 @@ class Router implements RouterInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        if (!$this->isPrepared) {
-            $this->prepareRoutes($request);
+        if (!$this->isPreparedGroups) {
+            $this->prepareGroups();
+        }
+
+        if (!$this->isPreparedRoutes) {
+            $this->prepareRoutes();
         }
 
         return $this->dispatcher->setMiddleware($this->getMiddlewareStack())->handle($request);
     }
 
     /**
-     * @param ServerRequestInterface $request
-     *
-     * @throws RouteException if the path could not be prepared or the container could not be set
      * @return void
      */
-    protected function prepareRoutes(ServerRequestInterface $request): void
+    protected function prepareGroups(): void
     {
         foreach ($this->groups as $key => $group) {
             unset($this->groups[$key]);
@@ -151,6 +157,15 @@ class Router implements RouterInterface
             $group();
         }
 
+        $this->isPreparedGroups = true;
+    }
+
+    /**
+     * @throws RouteException if the path could not be prepared or the container could not be set
+     * @return void
+     */
+    protected function prepareRoutes(): void
+    {
         foreach ($this->routes as $route) {
             if ($this->getContainer() !== null) {
                 $route->setContainer($this->getContainer());
@@ -160,7 +175,7 @@ class Router implements RouterInterface
             $this->dispatcher->addRoute($route->setPath($this->prepareRoutePath($route->getPath())));
         }
 
-        $this->isPrepared = true;
+        $this->isPreparedRoutes = true;
     }
 
     /**
@@ -187,6 +202,10 @@ class Router implements RouterInterface
      */
     public function getRoutes(): array
     {
+        if (!$this->isPreparedGroups) {
+            $this->prepareGroups();
+        }
+
         return $this->routes;
     }
 
