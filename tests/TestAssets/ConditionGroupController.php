@@ -20,4 +20,13 @@ class ConditionGroupController
 
         return $response;
     }
+
+    #[Get('/foo', scheme: 'http', host: 'example2.com', port: 8181)]
+    public function foo(): ResponseInterface
+    {
+        $response = new Response();
+        $response->getBody()->write('condition-group.foo');
+
+        return $response;
+    }
 }

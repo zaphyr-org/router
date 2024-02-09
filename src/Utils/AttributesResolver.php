@@ -61,24 +61,35 @@ class AttributesResolver
         foreach ($attributeGroups as $attribute) {
             $group = $attribute->newInstance();
 
-            $group
-                ->setCallable(
-                    static function (GroupInterface $group) use ($reflection, $controller) {
-                        foreach ($reflection->getMethods() as $method) {
-                            $routes = $method->getAttributes(Route::class, ReflectionAttribute::IS_INSTANCEOF);
+            $group->setCallable(
+                static function (GroupInterface $group) use ($reflection, $controller) {
+                    foreach ($reflection->getMethods() as $method) {
+                        $routes = $method->getAttributes(Route::class, ReflectionAttribute::IS_INSTANCEOF);
 
-                            foreach ($routes as $attribute) {
-                                $route = $attribute->newInstance();
-                                $route->setGroup($group);
+                        foreach ($routes as $attribute) {
+                            $route = $attribute->newInstance();
+                            $route->setGroup($group);
 
-                                $group
-                                    ->add($route->getPath(), $route->getMethods(), [$controller, $method->getName()])
-                                    ->setName($route->getName())
-                                    ->setMiddleware($route->getMiddlewareStack());
+                            $groupRoute = $group
+                                ->add($route->getPath(), $route->getMethods(), [$controller, $method->getName()])
+                                ->setName($route->getName())
+                                ->setMiddleware($route->getMiddlewareStack());
+
+                            if ($route->getScheme() !== null) {
+                                $groupRoute->setScheme($route->getScheme());
+                            }
+
+                            if ($route->getHost() !== null) {
+                                $groupRoute->setHost($route->getHost());
+                            }
+
+                            if ($route->getPort() !== null) {
+                                $groupRoute->setPort($route->getPort());
                             }
                         }
                     }
-                )->setRouter($router);
+                }
+            )->setRouter($router);
 
             $groups[] = $group;
         }

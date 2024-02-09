@@ -1042,6 +1042,49 @@ class RouterTest extends TestCase
         self::assertEquals('port 2', (string)$response->getBody());
     }
 
+    public function testGroupConditionsAreOverwrittenByRouteConditions(): void
+    {
+        $this->router->group('/foo', static function (Group $group) {
+            $group->add('/bar', ['GET'], static function () {
+                $response = new Response();
+                $response->getBody()->write('bar');
+
+                return $response;
+            })
+                ->setScheme('https')
+                ->setHost('example.com')
+                ->setPort(80);
+        })
+            ->setScheme('http')
+            ->setHost('localhost')
+            ->setPort(8080);
+
+        $uri = (new Uri('/foo/bar'))
+            ->withScheme('https')
+            ->withHost('example.com')
+            ->withPort(80);
+
+        $request = new ServerRequest(uri: $uri);
+        $response = $this->router->handle($request);
+
+        self::assertSame('bar', (string)$response->getBody());
+    }
+
+    public function testGroupConditionsAreOverwrittenByRouteConditionsDefinedWithAttributes(): void
+    {
+        $this->router->setControllerRoutes([ConditionGroupController::class]);
+
+        $uri = (new Uri('/condition-group/foo'))
+            ->withScheme('http')
+            ->withHost('example2.com')
+            ->withPort(8181);
+
+        $request = new ServerRequest(uri: $uri);
+        $response = $this->router->handle($request);
+
+        self::assertSame('condition-group.foo', (string)$response->getBody());
+    }
+
     /* -------------------------------------------------
      * GET PATH FROM NAME
      * -------------------------------------------------
