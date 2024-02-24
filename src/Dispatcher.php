@@ -63,17 +63,16 @@ class Dispatcher extends RegexBasedAbstract implements DispatcherInterface
 
         switch ($routeInfo[0]) {
             case self::NOT_FOUND:
-                throw new NotFoundException('Could not find route for path "' . $path . '"', 404);
+                throw new NotFoundException('Could not find route for path "' . $path . '"');
             case self::METHOD_NOT_ALLOWED:
                 throw new MethodNotAllowedException(
-                    'Method "' . $method . '" not allowed. Allowed methods are: ' . implode(', ', $routeInfo[1]),
-                    405
+                    'Method "' . $method . '" not allowed. Allowed methods are: ' . implode(', ', $routeInfo[1])
                 );
             case self::FOUND:
                 $route = $routeInfo[1];
 
                 if (!$this->matchesRouteConditions($route, $uri)) {
-                    throw new NotFoundException('Could not find route for path "' . $path . '"', 404);
+                    throw new NotFoundException('Could not find route for path "' . $path . '"');
                 }
 
                 $request = $request->withAttribute(RouteInterface::class, $route);

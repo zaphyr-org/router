@@ -11,4 +11,8 @@ use Exception;
  */
 class MethodNotAllowedException extends Exception
 {
+    /**
+     * @var int
+     */
+    protected $code = 405;
 }
