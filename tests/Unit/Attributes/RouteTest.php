@@ -203,6 +203,14 @@ class RouteTest extends TestCase
         $this->route->getCallable();
     }
 
+    public function testGetCallableArrayThrowsExceptionWhenNoMethodIsSet(): void
+    {
+        $this->expectException(RouteException::class);
+
+        $this->route->setCallable([Controller::class]);
+        $this->route->getCallable();
+    }
+
     /* -------------------------------------------------
      * NAME
      * -------------------------------------------------

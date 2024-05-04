@@ -177,7 +177,7 @@ class Route implements RouteInterface
             $callable = explode('@', $callable);
         }
 
-        if (is_array($callable) && isset($callable[0])) {
+        if (is_array($callable) && isset($callable[0], $callable[1])) {
             try {
                 $class = $container !== null ? $container->get($callable[0]) : new $callable[0]();
             } catch (Throwable $exception) {
