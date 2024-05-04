@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Zaphyr\Router\Attributes;
 
 use Attribute;
+use Closure;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -189,6 +190,43 @@ class Route implements RouteInterface
 
         throw new RouteException(
             'Could not resolve a callable for route "' . $this->getPath() . '" with methods "'
+            . implode(', ', $this->getMethods()) . '"'
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCallableName(): string
+    {
+        $callable = $this->callable;
+
+        if (is_string($callable)) {
+            return str_contains($callable, '@') ? $callable : $callable . '@__invoke';
+        }
+
+        if (is_callable($callable)) {
+            if ($callable instanceof Closure) {
+                return 'Closure';
+            }
+
+            if (is_object($callable)) {
+                return get_class($callable) . '@__invoke';
+            }
+        }
+
+        if (is_array($callable) && isset($callable[0], $callable[1])) {
+            if (is_object($callable[0])) {
+                return get_class($callable[0]) . '@' . $callable[1];
+            }
+
+            if (is_string($callable[0])) {
+                return $callable[0] . '@' . $callable[1];
+            }
+        }
+
+        throw new RouteException(
+            'Could not resolve a callable name for route "' . $this->getPath() . '" with methods "'
             . implode(', ', $this->getMethods()) . '"'
         );
     }

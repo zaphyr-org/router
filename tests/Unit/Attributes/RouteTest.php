@@ -211,6 +211,59 @@ class RouteTest extends TestCase
         $this->route->getCallable();
     }
 
+    /**
+     * @dataProvider getCallableNameDataProvider
+     * @throws RouteException
+     * @return void
+     */
+    public function testGetCallableName(callable|string|array $callable, string $expected): void
+    {
+        $this->route->setCallable($callable);
+
+        self::assertEquals($expected, $this->route->getCallableName());
+    }
+
+    /**
+     * @return array<string, array<callable|string|array<string|object, string>>>
+     */
+    public static function getCallableNameDataProvider(): array
+    {
+        return [
+            'closure' => [
+                static function () {
+                },
+                'Closure',
+            ],
+            'invokable' => [
+                new Controller(),
+                'Zaphyr\RouterTests\TestAssets\Controller@__invoke',
+            ],
+            'controllerMethodStringWithInvoke' => [
+                Controller::class,
+                'Zaphyr\RouterTests\TestAssets\Controller@__invoke',
+            ],
+            'controllerMethodArray' => [
+                [new Controller(), 'index'],
+                'Zaphyr\RouterTests\TestAssets\Controller@index',
+            ],
+            'controllerMethodArrayWithStringClass' => [
+                [Controller::class, 'index'],
+                'Zaphyr\RouterTests\TestAssets\Controller@index',
+            ],
+            'controllerMethodString' => [
+                Controller::class . '@index',
+                'Zaphyr\RouterTests\TestAssets\Controller@index',
+            ],
+        ];
+    }
+
+    public function testGetCallableNameThrowsExceptionWhenNoCallableResolved(): void
+    {
+        $this->expectException(RouteException::class);
+
+        $this->route->getCallableName();
+    }
+
     /* -------------------------------------------------
      * NAME
      * -------------------------------------------------

@@ -58,6 +58,12 @@ interface RouteInterface extends
     public function getCallable(): mixed;
 
     /**
+     * @throws RouteException if the callable is not valid
+     * @return string
+     */
+    public function getCallableName(): string;
+
+    /**
      * @param string $name
      *
      * @return $this
