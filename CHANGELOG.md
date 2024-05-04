@@ -3,10 +3,19 @@
 All notable changes to this project will be documented in this file,
 in reverse chronological order by release.
 
+## [v1.3.0](https://github.com/zaphyr-org/router/compare/1.2.1...1.3.0) [2024-05-05]
+
+### New:
+* Added 404 and 405 code to MethodNotAllowedException and NotFoundException classes
+* Added Route::getCallableName method
+
+### Fixed:
+* Added try-catch with RouteException to Route::process method
+* Route::getCallable now also checks whether a valid controller method has been set
+
 ## [v1.2.1](https://github.com/zaphyr-org/router/compare/1.2.0...1.2.1) [2024-02-09]
 
 ### Fixed:
-
 * The `getRoutes` method of the Router class now also takes group routes into account
 * Route condition attributes now correctly overwrite group condition attributes
 
