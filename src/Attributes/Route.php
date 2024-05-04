@@ -254,8 +254,12 @@ class Route implements RouteInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $callback = $this->getCallable();
+        try {
+            $callback = $this->getCallable();
 
-        return $callback($request, $this->getParams());
+            return $callback($request, $this->getParams());
+        } catch (Throwable $exception) {
+            throw new RouteException($exception->getMessage(), $exception->getCode(), $exception);
+        }
     }
 }

@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Zaphyr\RouterTests\Unit\Attributes;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zaphyr\HttpMessage\Response;
 use Zaphyr\Router\Attributes\Group;
 use Zaphyr\Router\Attributes\Route;
@@ -20,12 +23,25 @@ use Zaphyr\RouterTests\TestAssets\MiddlewareTwo;
 class RouteTest extends TestCase
 {
     /**
+     * @var ServerRequestInterface&MockObject
+     */
+    protected ServerRequestInterface&MockObject $requestMock;
+
+    /**
+     * @var RequestHandlerInterface&MockObject
+     */
+    protected RequestHandlerInterface&MockObject $handlerMock;
+
+    /**
      * @var Route
      */
     protected Route $route;
 
     protected function setUp(): void
     {
+        $this->requestMock = $this->createMock(ServerRequestInterface::class);
+        $this->handlerMock = $this->createMock(RequestHandlerInterface::class);
+
         $this->route = new Route('/');
     }
 
@@ -436,5 +452,32 @@ class RouteTest extends TestCase
                 }
             }
         );
+    }
+
+    /* -------------------------------------------------
+     * PROCESS
+     * -------------------------------------------------
+     */
+
+    public function testProcess(): void
+    {
+        $this->route->setCallable(static function () {
+            $response = new Response();
+            $response->getBody()->write('Hello World!');
+
+            return $response;
+        });
+
+        $response = $this->route->process($this->requestMock, $this->handlerMock);
+
+        self::assertEquals('Hello World!', (string)$response->getBody());
+    }
+
+    public function testProcessThrowsExceptionWhenCallableCannotBeResolved(): void
+    {
+        $this->expectException(RouteException::class);
+
+        $this->route->setCallable([Controller::class, 'nonExistingMethod']);
+        $this->route->process($this->requestMock, $this->handlerMock);
     }
 }
