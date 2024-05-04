@@ -593,7 +593,6 @@ class RouterTest extends TestCase
         self::assertSame('{"bar":"bar"}', (string)$response->getBody());
     }
 
-
     public function testHandleWithMultipleWildcardParamsRoute(): void
     {
         $this->router->get('/and/{foo}/and/{bar:alpha}/and/{baz:alpha}', function ($request, $params) {

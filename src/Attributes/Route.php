@@ -59,13 +59,13 @@ class Route implements RouteInterface
     protected array $params = [];
 
     /**
-     * @param string                               $path
-     * @param string[]                             $methods
-     * @param string                               $name
-     * @param MiddlewareInterface[]|class-string[] $middlewares Will be renamed to "middleware" in v2.0.
-     * @param string|null                          $scheme
-     * @param string|null                          $host
-     * @param int|null                             $port
+     * @param string                                                    $path
+     * @param string[]                                                  $methods
+     * @param string                                                    $name
+     * @param MiddlewareInterface[]|class-string<MiddlewareInterface>[] $middlewares Will be renamed to "middleware" in v2.0.
+     * @param string|null                                               $scheme
+     * @param string|null                                               $host
+     * @param int|null                                                  $port
      *
      * @throws RouteException if the given HTTP method is invalid
      */

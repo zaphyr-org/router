@@ -34,11 +34,11 @@ class Group implements GroupInterface
     protected RouterInterface $router;
 
     /**
-     * @param string                               $path
-     * @param MiddlewareInterface[]|class-string[] $middlewares Will be renamed to "middleware" in v2.0.
-     * @param string|null                          $scheme
-     * @param string|null                          $host
-     * @param int|null                             $port
+     * @param string                                                    $path
+     * @param MiddlewareInterface[]|class-string<MiddlewareInterface>[] $middlewares Will be renamed to "middleware" in v2.0.
+     * @param string|null                                               $scheme
+     * @param string|null                                               $host
+     * @param int|null                                                  $port
      */
     public function __construct(
         protected string $path,

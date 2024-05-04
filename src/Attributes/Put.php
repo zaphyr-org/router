@@ -14,12 +14,12 @@ use Psr\Http\Server\MiddlewareInterface;
 class Put extends Route
 {
     /**
-     * @param string                               $path
-     * @param string                               $name
-     * @param MiddlewareInterface[]|class-string[] $middlewares Will be renamed to "middleware" in v2.0.
-     * @param string|null                          $scheme
-     * @param string|null                          $host
-     * @param int|null                             $port
+     * @param string                                                    $path
+     * @param string                                                    $name
+     * @param MiddlewareInterface[]|class-string<MiddlewareInterface>[] $middlewares Will be renamed to "middleware" in v2.0.
+     * @param string|null                                               $scheme
+     * @param string|null                                               $host
+     * @param int|null                                                  $port
      */
     public function __construct(
         string $path,

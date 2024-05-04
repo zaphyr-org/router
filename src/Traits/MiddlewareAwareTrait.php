@@ -16,7 +16,7 @@ trait MiddlewareAwareTrait
     use ContainerAwareTrait;
 
     /**
-     * @var MiddlewareInterface[]|class-string[]
+     * @var MiddlewareInterface[]|class-string<MiddlewareInterface>[]
      */
     protected array $middlewares = [];
 

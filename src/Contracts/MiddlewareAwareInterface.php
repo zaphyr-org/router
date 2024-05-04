@@ -13,14 +13,14 @@ use Zaphyr\Router\Exceptions\MiddlewareException;
 interface MiddlewareAwareInterface
 {
     /**
-     * @param MiddlewareInterface|MiddlewareInterface[]|class-string|class-string[] $middleware
+     * @param MiddlewareInterface|MiddlewareInterface[]|class-string<MiddlewareInterface>|class-string<MiddlewareInterface>[] $middleware
      *
      * @return $this
      */
     public function setMiddleware(MiddlewareInterface|string|array $middleware): static;
 
     /**
-     * @param MiddlewareInterface[]|class-string[] $middlewares
+     * @param MiddlewareInterface[]|class-string<MiddlewareInterface>[] $middlewares
      *
      * @return $this
      * @deprecated Will be removed in v2.0. Use "setMiddleware" instead.
@@ -28,7 +28,7 @@ interface MiddlewareAwareInterface
     public function setMiddlewares(array $middlewares): static;
 
     /**
-     * @return MiddlewareInterface[]|class-string[]
+     * @return MiddlewareInterface[]|class-string<MiddlewareInterface>[]
      */
     public function getMiddlewareStack(): array;
 
@@ -39,7 +39,7 @@ interface MiddlewareAwareInterface
     public function shiftMiddleware(): MiddlewareInterface;
 
     /**
-     * @param MiddlewareInterface|class-string $middleware
+     * @param MiddlewareInterface|class-string<MiddlewareInterface> $middleware
      *
      * @throws MiddlewareException if the middleware could not be resolved
      * @return MiddlewareInterface
