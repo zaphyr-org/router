@@ -85,7 +85,7 @@ interface RouteInterface extends
     /**
      * @return GroupInterface|null
      */
-    public function getGroup(): GroupInterface|null;
+    public function getGroup(): ?GroupInterface;
 
     /**
      * @param array<string, string> $params

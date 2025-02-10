@@ -22,17 +22,17 @@ trait RouteConditionTrait
     /**
      * @var string|null
      */
-    protected string|null $scheme;
+    protected ?string $scheme;
 
     /**
      * @var string|null
      */
-    protected string|null $host;
+    protected ?string $host;
 
     /**
      * @var int|null
      */
-    protected int|null $port;
+    protected ?int $port;
 
     /**
      * {@inheritdoc}
@@ -67,7 +67,7 @@ trait RouteConditionTrait
     /**
      * {@inheritdoc}
      */
-    public function getScheme(): string|null
+    public function getScheme(): ?string
     {
         return $this->scheme;
     }
@@ -85,7 +85,7 @@ trait RouteConditionTrait
     /**
      * {@inheritdoc}
      */
-    public function getHost(): string|null
+    public function getHost(): ?string
     {
         return $this->host;
     }
@@ -109,7 +109,7 @@ trait RouteConditionTrait
     /**
      * {@inheritdoc}
      */
-    public function getPort(): int|null
+    public function getPort(): ?int
     {
         return $this->isNonStandardPort() ? $this->port : null;
     }

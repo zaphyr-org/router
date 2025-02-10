@@ -16,7 +16,7 @@ trait ContainerAwareTrait
     /**
      * @var ContainerInterface|null
      */
-    protected ContainerInterface|null $container = null;
+    protected ?ContainerInterface $container = null;
 
     /**
      * {@inheritdoc}
@@ -38,7 +38,7 @@ trait ContainerAwareTrait
     /**
      * {@inheritdoc}
      */
-    public function getContainer(): ContainerInterface|null
+    public function getContainer(): ?ContainerInterface
     {
         return $this->container;
     }

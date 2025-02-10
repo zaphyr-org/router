@@ -22,7 +22,7 @@ interface RouteConditionInterface
     /**
      * @return string|null
      */
-    public function getScheme(): string|null;
+    public function getScheme(): ?string;
 
     /**
      * @param string $host
@@ -34,7 +34,7 @@ interface RouteConditionInterface
     /**
      * @return string|null
      */
-    public function getHost(): string|null;
+    public function getHost(): ?string;
 
     /**
      * @param int $port
@@ -47,5 +47,5 @@ interface RouteConditionInterface
     /**
      * @return int|null
      */
-    public function getPort(): int|null;
+    public function getPort(): ?int;
 }

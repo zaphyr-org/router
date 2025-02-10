@@ -43,9 +43,9 @@ class Group implements GroupInterface
     public function __construct(
         protected string $path,
         array $middlewares = [],
-        string|null $scheme = null,
-        string|null $host = null,
-        int|null $port = null
+        ?string $scheme = null,
+        ?string $host = null,
+        ?int $port = null
     ) {
         $this->path = '/' . trim($this->path, '/');
         $this->middlewares = $middlewares;

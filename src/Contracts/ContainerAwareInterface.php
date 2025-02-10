@@ -23,5 +23,5 @@ interface ContainerAwareInterface
     /**
      * @return ContainerInterface|null
      */
-    public function getContainer(): ContainerInterface|null;
+    public function getContainer(): ?ContainerInterface;
 }

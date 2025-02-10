@@ -25,9 +25,9 @@ class Put extends Route
         string $path,
         string $name = '',
         array $middlewares = [],
-        string|null $scheme = null,
-        string|null $host = null,
-        int|null $port = null
+        ?string $scheme = null,
+        ?string $host = null,
+        ?int $port = null
     ) {
         parent::__construct($path, ['PUT'], $name, $middlewares, $scheme, $host, $port);
     }

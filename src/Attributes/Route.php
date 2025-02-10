@@ -51,7 +51,7 @@ class Route implements RouteInterface
     /**
      * @var GroupInterface|null
      */
-    protected GroupInterface|null $group = null;
+    protected ?GroupInterface $group = null;
 
     /**
      * @var array<string, string>
@@ -74,9 +74,9 @@ class Route implements RouteInterface
         array $methods = ['GET'],
         string $name = '',
         array $middlewares = [],
-        string|null $scheme = null,
-        string|null $host = null,
-        int|null $port = null
+        ?string $scheme = null,
+        ?string $host = null,
+        ?int $port = null
     ) {
         $this->setPath($path);
         $this->setMethods($methods);
@@ -262,7 +262,7 @@ class Route implements RouteInterface
     /**
      * {@inheritdoc}
      */
-    public function getGroup(): GroupInterface|null
+    public function getGroup(): ?GroupInterface
     {
         return $this->group;
     }
