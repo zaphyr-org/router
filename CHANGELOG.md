@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file,
 in reverse chronological order by release.
 
+## [v1.3.1](https://github.com/zaphyr-org/router/compare/1.3.0...1.3.1) [2025-02-10]
+
+### Fixed:
+* Removed phpstan errors
+* Removed PHP 8.4 deprecations
+
 ## [v1.3.0](https://github.com/zaphyr-org/router/compare/1.2.1...1.3.0) [2024-05-05]
 
 ### New:
