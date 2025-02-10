@@ -39,7 +39,7 @@ class Route implements RouteInterface
     protected array $methods;
 
     /**
-     * @var callable|string|array<string|object, string>
+     * @var callable|string|array<string|object, string>|array{class-string, non-empty-string}
      */
     protected $callable;
 

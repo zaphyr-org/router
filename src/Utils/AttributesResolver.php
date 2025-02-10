@@ -21,7 +21,9 @@ use Zaphyr\Router\Exceptions\RouteException;
 class AttributesResolver
 {
     /**
-     * @param class-string     $controller
+     * @template T of object
+     *
+     * @param class-string<T>  $controller
      * @param RouteInterface[] $routes
      *
      * @throws RouteException if the controller does not exist
@@ -46,7 +48,9 @@ class AttributesResolver
     }
 
     /**
-     * @param class-string     $controller
+     * @template T of object
+     *
+     * @param class-string<T>  $controller
      * @param GroupInterface[] $groups
      * @param RouterInterface  $router
      *
@@ -96,10 +100,12 @@ class AttributesResolver
     }
 
     /**
-     * @param string $controller
+     * @template T of object
+     *
+     * @param class-string<T> $controller
      *
      * @throws RouteException if the controller does not exist
-     * @return ReflectionClass
+     * @return ReflectionClass<T>
      */
     protected static function getReflectionClass(string $controller): ReflectionClass
     {

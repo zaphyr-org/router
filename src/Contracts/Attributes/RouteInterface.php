@@ -45,7 +45,7 @@ interface RouteInterface extends
     public function getMethods(): array;
 
     /**
-     * @param callable|string|array<string|object, string> $callable
+     * @param callable|string|array<string|object, string>|array{class-string, non-empty-string} $callable
      *
      * @return $this
      */

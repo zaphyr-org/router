@@ -13,9 +13,9 @@ use Zaphyr\Router\Exceptions\RouteException;
 interface RouteCollectorInterface
 {
     /**
-     * @param string                                       $path
-     * @param string[]                                     $methods
-     * @param callable|string|array<string|object, string> $callable
+     * @param string                                                                             $path
+     * @param string[]                                                                           $methods
+     * @param callable|string|array<string|object, string>|array{class-string, non-empty-string} $callable
      *
      * @throws RouteException if the given HTTP method is invalid
      * @return RouteInterface

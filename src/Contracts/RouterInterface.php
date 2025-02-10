@@ -19,7 +19,9 @@ interface RouterInterface extends
     RequestHandlerInterface
 {
     /**
-     * @param class-string[] $controllers
+     * @template T of object
+     *
+     * @param class-string<T>[] $controllers
      *
      * @return void
      */
