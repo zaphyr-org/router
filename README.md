@@ -25,7 +25,7 @@ composer require zaphyr-org/router
 
 ## Documentation
 
-You can read the full documentation [here](https://zaphyr.org/docs/1.x/repositories/router).
+You can read the full documentation [here](https://zaphyr.org/docs/repositories/latest/router).
 
 ## Changelog
 
@@ -33,7 +33,8 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Issues
 
-Bug reports and feature requests can be submitted on the [GitHub Issue Tracker](https://github.com/zaphyr-org/router/issues).
+Bug reports and feature requests can be submitted on
+the [GitHub Issue Tracker](https://github.com/zaphyr-org/router/issues).
 
 ## Security
 
