@@ -287,17 +287,11 @@ class Route implements RouteInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @throws RouteException if the route callable is not valid or not resolvable by the container
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        try {
-            $callback = $this->getCallable();
+        $callback = $this->getCallable();
 
-            return $callback($request, $this->getParams());
-        } catch (Throwable $exception) {
-            throw new RouteException($exception->getMessage(), $exception->getCode(), $exception);
-        }
+        return $callback($request, $this->getParams());
     }
 }

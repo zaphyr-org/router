@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Throwable;
 use Zaphyr\HttpMessage\Response;
 use Zaphyr\Router\Attributes\Group;
 use Zaphyr\Router\Attributes\Route;
@@ -536,7 +537,7 @@ class RouteTest extends TestCase
 
     public function testProcessThrowsExceptionWhenCallableCannotBeResolved(): void
     {
-        $this->expectException(RouteException::class);
+        $this->expectException(Throwable::class);
 
         $this->route->setCallable([Controller::class, 'nonExistingMethod']);
         $this->route->process($this->requestMock, $this->handlerMock);
